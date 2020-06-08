@@ -1,0 +1,1398 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Christian Roerig">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="This markdown illustrates how to solve optimal stochastic control problems or combinations thereof using a forward simulation and backward optimization approach.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/project/optimal_stochastic_control/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/project/optimal_stochastic_control/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="Christian Roerig">
+  <meta property="og:url" content="/project/optimal_stochastic_control/">
+  <meta property="og:title" content="Optimal Stochastic Control | Christian Roerig">
+  <meta property="og:description" content="This markdown illustrates how to solve optimal stochastic control problems or combinations thereof using a forward simulation and backward optimization approach."><meta property="og:image" content="/project/optimal_stochastic_control/featured.png">
+  <meta property="twitter:image" content="/project/optimal_stochastic_control/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-05-20T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-05-20T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/project/optimal_stochastic_control/"
+  },
+  "headline": "Optimal Stochastic Control",
+  
+  "image": [
+    "/project/optimal_stochastic_control/featured.png"
+  ],
+  
+  "datePublished": "2020-05-20T00:00:00Z",
+  "dateModified": "2020-05-20T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Christian Roerig"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Christian Roerig",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "This markdown illustrates how to solve optimal stochastic control problems or combinations thereof using a forward simulation and backward optimization approach."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Optimal Stochastic Control | Christian Roerig</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Christian Roerig</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Christian Roerig</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/research/"><span>Research</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#teaching_experience"><span>Teaching</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/codes/"><span>Codes</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/CV_Roerig_05_20.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article article-project">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Optimal Stochastic Control</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    May 20, 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+
+<div id="stochastic-solution" class="section level1">
+<h1>Stochastic solution</h1>
+<p>This markdown is based on work for the paper “The Birth of a Multinational: Innovation and Foreign Acquisitions” with Jim Goldman, Maria Guadalupe and Veronica Rapppoport. The problem is to find the optimal timing and amount of investment into a new technology, as well as when to become a multinational, i.e. enter a new market facing higher demand. Expertise which forms together with technology the level of productivity is stochastic in this setting following a Brownian motion. This problem is a combination of a optimal stochastic impulse control problem (when and how much to invest) and an optimal switching problem (when to enter the new market). For those problems a closed-form solution usually doesn’t exist. Hence, I thought it might be of general interest to show how to tackle such a problem numerically.</p>
+<div id="method" class="section level2">
+<h2>Method</h2>
+<p>The numerical solution method follows the outline of the “Forward simulation and backward updating” (FSBU) algorithm described in “A Backward Simulation Method for Stochastic Optimal Control Problems” by Shen &amp; Weng (2019).</p>
+<ol style="list-style-type: decimal">
+<li><p>Initiation:</p>
+<p>Set <span class="math inline">\(V_{d,T}(a,h) = \pi_{M,T}(a,h)\)</span>. Meaning that after some finite time T every domestic firm is eventually a multinational firm. So we have to back out, how the firm got there optimally. Given that the value is time-dependent, so will the policy functions (likely to converge to some constant decision rule after some time). For <span class="math inline">\(t= T-1, T-2,...\)</span> do the following two steps:</p></li>
+<li><p>Forward Simulation:</p>
+<ul>
+<li><p>Control randomization: Generate random samples (N: amount of Monte Carlo simulations) of actions (invest <span class="math inline">\(a\)</span> (arbitrary), open foreign affiliation <span class="math inline">\(f\)</span> (once for <span class="math inline">\(t \in[1,T]\)</span>)) up to time t:
+<span class="math display">\[a^n_{1:t} = (a_1^n,...,a_t^n), n=1,2,...,N, \]</span>
+<span class="math display">\[ f^n_{1:t} = (f_1^n,...,f_t^n), n=1,2,...,N, \]</span>
+with <span class="math inline">\(\sum_{i=1}^{t}f_i^n=1\)</span> and <span class="math inline">\(f_i \in (0,1)\)</span> for all <span class="math inline">\(n = 1,2,...,N\)</span>.</p></li>
+<li><p>Simulation of state process: Simulate random innovations to the process of experience:
+<span class="math display">\[\epsilon^n_{1:t} = (\epsilon_1^n,...,\epsilon_t^n), n=1,2,...,N,\]</span>
+This gives us a sample of the state process
+<span class="math display">\[X^n_{1:t} = (X_1^n,...,X_t^n), n=1,2,...,N,\]</span>
+where each state <span class="math inline">\(X^n_{t}\)</span> is a function of its prior state, any action/inaction and innovations to experience: <span class="math inline">\(X^n_{t}= s(X^n_{t-1},a^n_{t-1},f^n_{t-1},\epsilon_t^n)\)</span>.</p></li>
+</ul></li>
+<li><p>Backward Updating:</p>
+<ul>
+<li>Non-parametric regression: Now using the simulated states construct value as dependent variable by just assigning the reward (profit) function to the state:
+<span class="math display">\[Y^n_{t+1} = V_{t+1}(X_{t+1}^n), n=1,2,...,N.\]</span>
+Further, as independent variable, construct sample of post-action state value (function K captures loss in experience, increase in a)
+<span class="math display">\[ X^n_{t+} = K(X_{t}^n,a_t^n,f_t^n), n=1,2,...,N.\]</span>
+Now regressing <span class="math inline">\(Y^n_{t+1}\)</span> on <span class="math inline">\(X^n_{t+}\)</span> non-parametrically gives us an estimate of the continuation value <span class="math inline">\(C_t\)</span>.</li>
+<li>Optimization: Finally, in order to find the optimal policy functions (i.e. when and how much to invest and when to enter) we optimize the following problem recursively for all t (hence, time dependent policies).
+<span class="math display">\[V_t(a,h) = \sup_{a&#39;,f}[\pi_t(X_t,a&#39;,f)+\beta C_t(K(X_{t},a&#39;,f))]\]</span></li>
+</ul></li>
+</ol>
+</div>
+<div id="set-parameters-of-model" class="section level2">
+<h2>Set parameters of model</h2>
+<pre class="r"><code>M_d = 1      # domestic revenue stream
+M_m = 1.25   # revenue stream multinational
+p_a = 0.2    # cost for innovating
+F_M = 2      # cost for opening foreign affiliation
+r = 0.02     # two percent risk free rate per period
+kappa = 0.1  # drop in experience due to new technology
+mu = 0.015   # learning rate
+sigma = 0.1  # standard deviation of brownian motion
+
+a0 = 0       # initial technology level
+h0 = 0.5     # initial experience level</code></pre>
+</div>
+<div id="set-parameters-for-simulation" class="section level2">
+<h2>Set parameters for simulation</h2>
+<pre class="r"><code>N = 1000 # number of Monte Carlo simulations 
+T = 10 # points in time
+B = 0 # burn in periods</code></pre>
+</div>
+<div id="initialize-objects-to-save-simulations" class="section level2">
+<h2>Initialize objects to save simulations</h2>
+<pre class="r"><code># actions
+investment = matrix(0,N,T+B)
+entry = matrix(0,N,T+B)
+
+# value of firm
+value = matrix(0,N,T+B)
+# states
+state_space = array(0,dim=c(3,N,T+B))</code></pre>
+</div>
+<div id="forward-simulation" class="section level2">
+<h2>Forward Simulation</h2>
+<p>The following block implements the forward Monte carlo Simulation for N firms. First, we draw random investment and entry strategies for each firm at each point in time. While a firm can invest at any point in time, any amount, it can only once open a foreign affiliation and become a multinational.</p>
+<pre class="r"><code># Control randomization
+for (i in 1:N){
+  set.seed(i*123)
+  # here investment replaces old technology level if higher
+  investment[i,] = pmax(0,rnorm(T+B, mean = 0, sd = 2))
+  set.seed(i*1234)
+  entry[i,sample(1:(T+B),1)] = 1 # maybe use heuristik, so less Monte Carlo simulations are needed, e.g. entry if ((T-t)*productivity*(M_m-M_d)&gt;F_M)
+}</code></pre>
+<p>Next, based on our control randomization, we calculate the resulting states starting with out initial values for the technology level and expertise. The states evolve according to the actions each firm takes and the stochastic learning process for expertise. The state_space is an object which saves the value of each state (technology level, expertise and domestic/multinational dummy) for each firm at each point in time.</p>
+<pre class="r"><code># Calculate state process based on actions and shocks. 
+#States: a, h, shock (forming productivity), foreign_dummy
+set.seed(2)
+state_space[1,,1] = pmax(0,rnorm(N, mean = 0.5, sd = 1)) # initial technology level for all simulations 
+set.seed(3)
+state_space[2,,1] = pmax(0,rnorm(N, mean = 0.5, sd = 1)) # initial experience level for all simulations
+#Note! if we want to start from an initial distribution 
+#we might need to &quot;burn&quot; some simulations at the start
+state_space[3,,1] = 0  # initially domestic firm
+
+# initialize object to save simulations of sde
+sde = array(0,dim=c(N))
+drift = expression(mu * x)
+diffusion = expression(sqrt(2) * sigma * x)
+
+for (t in 2:(T+B)){
+  state_space[1,,t] = state_space[1,,t-1] + investment[,t-1]
+  # for experience we need to account for stochastic drift
+  for (n in 1:N){
+  #set.seed(n*12345)
+    if (investment[n,t-1]&gt;0){
+      x0 = state_space[2,n,t-1] * (1-kappa)
+    }
+    else {
+      x0 = state_space[2,n,t-1]
+    }
+  aux = snssde1d(N=2,drift = drift, diffusion = diffusion, x0 = x0,M=1, type=&quot;ito&quot;,Dt=1)
+  sde[n] = aux$X[2]
+  # use heuristik to determine entry
+  #if((T-t)*(state_space[2,n,t-1]*state_space[1,n,t-1])^0.5*(M_m-M_d)&gt;(F_M/2) &amp; state_space[3,n,t-1]==0){
+  #  entry[n,t-1] = 1
+  #}
+  #else{
+  #  entry[n,t-1] = 0
+  #}
+  }
+  
+  state_space[2,,t] = sde
+  state_space[3,,t] = state_space[3,,t-1] + entry[,t-1] 
+}
+
+# Delete burn in periods
+if (B&gt;0){
+state_space_b = state_space[,,(B+1):(T+B)]
+state_space_b[1,,] = state_space_b[1,,]/quantile(state_space_b[1,,1],0.99)
+state_space_b[2,,] = state_space_b[2,,]/quantile(state_space_b[2,,1],0.99)
+state_space = NULL
+state_space = state_space_b
+}</code></pre>
+<p>Now that we have simulated the state space, we can calculate the reward (here the revenue) for each firm and get the (idiosyncratic) value function for each point in time recursively. This is what we want to maximize later, taking the cost of each action into account.</p>
+<pre class="r"><code># reward function = revenue (cost trade-off in optimization)
+revenue_function = function(state_space){
+  a = state_space[1,,]
+  h = state_space[2,,]
+  f = state_space[3,,]
+  revenue = (1-f) * a^0.5 * h^0.5 * M_d + f * a^0.5 * h^0.5 * M_m #- as.numeric(investment&gt;0)*(investment+a)*p_a - entry*F_M
+  return(revenue)
+}
+revenue = revenue_function (state_space)
+
+# calculate net present value of revenue over time
+revenue_value_function = function(revenue){
+  value_t = array(0,dim=dim(revenue))
+  value_t[,ncol(revenue)] = revenue[,ncol(revenue)]
+  for (t in (ncol(revenue)-1):1){
+  value_t[,t] = revenue[,t] + exp(-r)*value_t[,t+1]
+  }
+  return(value_t)
+}
+
+value_revenue = revenue_value_function(revenue)</code></pre>
+<p>Finally we plot some simulated paths of the state space and the corresponding revenue.</p>
+<pre class="r"><code># Plot some simulated paths
+n=1000
+par(mfrow=c(2,2),mar=c(4,4,1,1))
+exp_p = ts(t(state_space[2,1:n,]))
+ts.plot(exp_p,ylab = &quot;Experience&quot;,gpars= list(col=plasma(n)))
+
+inv_p = ts(t(state_space[1,1:n,]))
+ts.plot(inv_p,ylab = &quot;Investment&quot;,gpars= list(col=plasma(n)))
+
+entry_p = ts(t(state_space[3,1:n,]))
+ts.plot(entry_p,ylab = &quot;Foreign affiliation&quot;,gpars= list(col=plasma(n)))
+
+revenue_p = ts(t(revenue[1:n,]))
+ts.plot(revenue_p,ylab = &quot;Revenue&quot;,gpars= list(col=plasma(n)))</code></pre>
+<p><img src="/project/Optimal_stochastic_control/index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+</p>
+</div>
+<div id="backward-updating-and-optimization" class="section level2">
+<h2>Backward Updating and Optimization</h2>
+<p>Up to this point we have simulated many potential paths for firms’ values depending on randomized actions. From that simulated data we aim to back out the optimal actions at any given state for each point in time. This will be done by backward updating which gives us an estimate of the continuation value and optimization, which chooses those actions maximizing the continuation value. This procedure is done in two steps: In a first step we non-parametrically regress (here using Gradient Boosting as this is extremely fast) the simulated (path-specific!) values on the simulated post-action states to get a mapping from post-action state to continuation value. The mapping from state to post-action state is deterministic and depends on the respective actions. Using those two mappings, one deterministic and the other one estimated, we can run an optimization scheme choosing those actions, which lead us to the corresponding post-action state which in turn gives us the highest continuation value in expecttation in the next period. We do this for any given “pre-action” state. The whole procedure is done backwards, for each point in time.</p>
+<pre class="r"><code># get post action state values - states as vectors for non-parametric estimation
+post_action_vector = function(current_state,investment,entry){
+  post_action = array(0,dim=c(3,N))
+  a = current_state[1,]
+  h = current_state[2,]
+  f = current_state[3,]
+  post_action[1,] = a + investment 
+  post_action[2,] = h * (1-as.numeric(investment&gt;0)) + h * (1-kappa) * as.numeric(investment&gt;0)
+  post_action[3,] = f + entry
+  return(post_action)
+}
+
+# get post action state values - states as scalars for optimization
+post_action = function(a,h,f,investment,entry){
+  post_action = array(0,dim=c(3))
+  post_action[1] = a + investment 
+  post_action[2] = h * (1-as.numeric(investment&gt;0)) + h * (1-kappa) * as.numeric(investment&gt;0)
+  post_action[3] = f + entry
+  return(post_action) 
+}
+
+
+# value_function (continuous optim)
+value_function_cont = function(a,h,f,o,x, model = model.np){
+  post = post_action(a,h,f,x,o)
+  sim_data = NULL
+  sim_data$inv = post[1]
+  sim_data$exp = post[2]
+  sim_data$foreign = post[3]
+  value = (1-f) * a^0.5 * h^0.5 * M_d + f * a^0.5 * h^0.5 * M_m - as.numeric(x[1]&gt;0)*(a+x[1])*p_a - (o&gt;0)*F_M + exp(-r)*predict(model,as_tibble(sim_data))$predictions
+  return(-value)
+}
+
+
+# initialize object to save optimal choices per time, per tech level, per experience and per action (invest, open fa)
+optim_choices_df = NULL
+# initialize value function (last period simply equal to revenue, as any action would violate optimality)
+value_function_opt = value_revenue
+
+for (t in T:2){
+  print(paste(&quot;Now optimizing time: &quot;,t,sep=&quot;&quot;))
+
+# Calculate numerical estimate of value function for all states at time t
+if (t &lt; T){
+# ! map random state (post-action and shock) to value, then regress on post_action
+states_data = NULL
+states_data$inv = state_space[1,,t]
+states_data$exp = state_space[2,,t]
+states_data$foreign = state_space[3,,t]
+states_data = as_tibble(states_data) 
+value_function_opt[,t] = predict(value_function_optim,newdata = states_data,se.fit=FALSE)
+#value_function_opt[,t] = predict(value_function_optim_gbm,as_tibble(states_data),n.trees=min_MSE_value)
+}
+
+# Non-parametric estimation of continuation value using numerical estimate of value function of the next period.
+K = post_action_vector(state_space[,,t-1],investment[,t-1],entry[,t-1])
+# collect variables into data frame
+sim_data = NULL
+sim_data$inv = K[1,]
+sim_data$exp = K[2,]
+sim_data$foreign = K[3,]
+sim_data$rev = value_function_opt[,t] # ! calculate numerical estimate of value function backwards
+sim_data = as_tibble(sim_data)
+sim_data = sim_data %&gt;% filter(inv &lt;= quantile(inv,0.99), exp &lt;= quantile(exp,0.99))
+
+# Gradient Boosting
+set.seed(1)
+#gbm &lt;- gbm(rev ~.,data = sim_data, dist = &quot;gaussian&quot;,interact=3,n.trees=1000,cv.folds=5,bag.fraction=1)
+#plotres(gbm)
+#min_MSE &lt;- which.min(gbm$cv.error)
+#plotmo::plotmo(gbm, pmethod=&quot;partdep&quot;)
+rf &lt;-  ranger(rev ~ ., data = sim_data)
+#pdp::partial(rf,pred.var=&quot;inv&quot;,plot=TRUE)
+#pdp::partial(rf,pred.var=&quot;entry&quot;,plot=TRUE)
+
+for (a in seq(min(state_space[1,,t-1]),quantile(state_space[1,,t-1],0.99), length.out = 5)){
+  for(h in seq(min(state_space[2,,t-1]),quantile(state_space[2,,t-1],0.99), length.out = 5)){
+    for(f in c(0,1)){
+    
+    # save optimal choices of investment and opening foreign affiliation
+    optim_choice = array(NA,dim=c(1,2))
+    
+    # continuous optimization - fix: discrete case of opening foreign affiliation
+      optimum = optim(par = c(0), fn = value_function_cont, lower=c(0), upper=c(100), method = &quot;Brent&quot;, a=a, h=h, f=f, o=0, model = rf)
+      optim_choice = c(optimum$par,0)
+      optim_value = -optimum$value
+      # specifically check investment = 0, doesn&#39;t seem to find corner solution
+      if (- value_function_cont(a,h,f,0,0,model=rf) &gt; optim_value){
+        optim_choice = c(0,0)
+        optim_value = -value_function_cont(a,h,f,0,0,model=rf)
+      }
+      #optimum = optim(par = c(0), fn = value_function_cont, lower=c(0), upper=c(100), method = &quot;Brent&quot;, a=a, h=h, f=f, o=1, model = rf)
+      #if (-optimum$value &gt; optim_value){
+      #  optim_choice = c(optimum$par,1)
+      #  optim_value = -optimum$value
+      #}
+      # specifically check investment = 0, doesn&#39;t seem to find corner solution
+      if (-value_function_cont(a,h,f,1,0,model=rf) &gt; optim_value){
+        optim_choice = c(0,1)
+        optim_value = -value_function_cont(a,h,f,1,0,model=rf)
+      }
+      
+    aux = NULL
+    aux$time = t-1 # save period
+    aux$inv = a    # state of technology level
+    aux$exp = h    # state of experience
+    aux$foreign = f # state of domestic/multinational
+    aux$invest = optim_choice[1] # optimal investment
+    aux$open = optim_choice[2]   # optimal entry
+    aux$value = optim_value      # optimal value
+    optim_choices_df = rbind(optim_choices_df,aux)
+    }
+  }
+}
+optim_choices_df = as_tibble(optim_choices_df)
+optim_choices_df = unnest(optim_choices_df,cols = c(time, inv, exp, foreign, invest, open, value) )
+
+if (t&gt;2){
+# map optimal value to states
+test_data = optim_choices_df %&gt;% filter(time == t-1)
+npseed(42)
+value_function_optim &lt;- npreg(value ~ inv + exp + foreign,data = test_data)
+#value_function_optim_gbm &lt;- gbm(value ~ inv + exp + foreign,data = test_data,dist = &quot;gaussian&quot;,interact=3,n.trees=1000,cv.folds=5)
+#min_MSE_value &lt;- which.min(value_function_optim_gbm$cv.error)
+#plot(value_function_optim)
+#plotmo::plotmo(value_function_optim_gbm, pmethod=&quot;partdep&quot;)
+}
+}</code></pre>
+<pre><code>## [1] &quot;Now optimizing time: 10&quot;
+## [1] &quot;Now optimizing time: 9&quot;
+## [1] &quot;Now optimizing time: 8&quot;
+## [1] &quot;Now optimizing time: 7&quot;
+## [1] &quot;Now optimizing time: 6&quot;
+## [1] &quot;Now optimizing time: 5&quot;
+## [1] &quot;Now optimizing time: 4&quot;
+## [1] &quot;Now optimizing time: 3&quot;
+## [1] &quot;Now optimizing time: 2&quot;</code></pre>
+</div>
+<div id="plot-results---per-point-in-time" class="section level2">
+<h2>Plot results - per point in time</h2>
+<p>Plots follow the paper “Deep neural networks algorithms for stochastic control
+problems on finite horizon: numerical applications” by Bachouch et al. (2020).</p>
+<pre class="r"><code>optim_choices_df %&gt;% filter(foreign==0) %&gt;% 
+  ggplot() + 
+  geom_raster(aes(x=inv,y=exp,fill=invest)) + 
+  ylab(&quot;Expertise&quot;)+
+  xlab(&quot;Technology level&quot;)+
+  #scale_fill_manual(values=c(&quot;snow2&quot;,&quot;yellow&quot;), na.value=&quot;black&quot;, name=&quot;Investment&quot;) +
+  scale_fill_gradient2(low=&quot;snow2&quot;, high=&quot;yellow&quot;, na.value=&quot;black&quot;, name=&quot;Investment&quot;) +
+  geom_point(aes(x=inv,y=exp,size=ifelse(open, &quot;enter&quot;, &quot;wait&quot;),color=ifelse(open, &quot;enter&quot;, &quot;wait&quot;)),stroke = 0) +
+  scale_size_manual(values=c(enter=1.5, wait=0), name=&quot;Become multinational&quot;) +
+  scale_color_manual(values=c(enter=&quot;forestgreen&quot;, wait=&quot;darkgray&quot;),name=&quot;Become multinational&quot;)+
+  facet_wrap(~time,scales=&quot;free&quot;,labeller = label_both)+
+  scale_y_continuous(labels = scales::number_format(accuracy = 0.1))+
+  scale_x_continuous(labels = scales::number_format(accuracy = 0.1))+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &quot;black&quot;))</code></pre>
+<pre><code>## Warning: Raster pixels are placed at uneven horizontal intervals and will be
+## shifted. Consider using geom_tile() instead.</code></pre>
+<pre><code>## Warning: Raster pixels are placed at uneven vertical intervals and will be
+## shifted. Consider using geom_tile() instead.</code></pre>
+<p><img src="/project/Optimal_stochastic_control/index_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+The results suggest that firms invest more, the higher their experience level relative to their technology level. They refrain from investing as long as their technology level is high relative to their experience. Furthermore, a firm becomes a multinational as soon as its productivity is high enough, i.e. for high values of technology level and experience.</p>
+</div>
+<div id="optimal-vs.-random-strategy" class="section level2">
+<h2>Optimal vs. random strategy</h2>
+<p>Plot paths for firms with same stochastic shocks but one is behaving optimally, while the other one is behaving randomly.</p>
+<pre class="r"><code>optim_firm_df = NULL
+random_firm_df = NULL
+optim_choices_df = round(optim_choices_df,2)
+# first firm is behaving randomly
+set.seed(12)
+random_firm_df$investment = pmax(0,runif(T, min = -2, max = 2))
+random_firm_df$entry = 0
+random_firm_df = as_tibble(random_firm_df)
+random_firm_df$entry[sample(1:T,1)] = 1
+random_firm_df$tech_level = 0
+random_firm_df$foreign = 0
+random_firm_df$exp = 0.5
+random_firm_df$profit = 0
+random_firm_df$time = 1
+random_firm_df$shock = 0
+
+# calculate profit for random firm
+random_firm_df$profit[1] = (1-random_firm_df$foreign[1])*random_firm_df$tech_level[1]^0.5*random_firm_df$exp[1]^0.5 * M_d + (random_firm_df$foreign[1])*random_firm_df$tech_level[1]^0.5*random_firm_df$exp[1]^0.5 * M_m - (random_firm_df$tech_level[1]+random_firm_df$investment[1])*p_a*as.numeric(random_firm_df$investment[1]&gt;0) - random_firm_df$entry[1] *F_M
+
+for (t in 2:T){
+  random_firm_df$time[t] = t
+  random_firm_df$tech_level[t] = random_firm_df$tech_level[t-1] + random_firm_df$investment[t-1]
+  set.seed(t*1234)
+  if (random_firm_df$investment[t-1]&gt;0){
+      x0 = random_firm_df$exp[t-1] * (1-kappa)
+    }
+    else {
+      x0 = random_firm_df$exp[t-1]
+    }
+  aux = snssde1d(N=2,drift = drift, diffusion = diffusion, x0 = x0,M=1, type=&quot;ito&quot;,Dt=1)
+  random_firm_df$exp[t] = aux$X[2]
+  random_firm_df$shock[t] = aux$X[2]/aux$X[1]
+  random_firm_df$foreign[t] = random_firm_df$foreign[t-1] + random_firm_df$entry[t-1]
+  random_firm_df$profit[t] = (1-random_firm_df$foreign[t])*random_firm_df$tech_level[t]^0.5*random_firm_df$exp[t]^0.5 * M_d +(random_firm_df$foreign[t])*random_firm_df$tech_level[t]^0.5*random_firm_df$exp[t]^0.5 * M_m - (random_firm_df$tech_level[t]+random_firm_df$investment[t])*p_a*as.numeric(random_firm_df$investment[t]&gt;0) - random_firm_df$entry[t] *F_M
+}
+
+
+
+# second firm is behaving optimally (optimal choices those with smallest distance to state values)
+dist &lt;- function(a, h, f, t, optim_choices_df. = optim_choices_df){
+          dt &lt;- data.table(sqrt((optim_choices_df[[&quot;inv&quot;]]-a)^2 + (optim_choices_df[[&quot;exp&quot;]]-h)^2 + (optim_choices_df[[&quot;foreign&quot;]]-f)^2+(optim_choices_df[[&quot;time&quot;]]-t)^2))
+          return(data.table(Closest.V1  = which.min(dt$V1)))
+}
+
+
+optim_firm_df$investment = array(0,dim=c(10,1))
+optim_firm_df$entry = 0
+optim_firm_df = as_tibble(optim_firm_df)
+optim_firm_df$tech_level = 0
+optim_firm_df$foreign = 0
+optim_firm_df$exp = 0.5
+optim_firm_df$profit = 0
+optim_firm_df$time = 1
+optim_firm_df$shock = 0
+
+for (t in 1:(T-1)){
+  optim_firm_df$time[t] = t
+  # get optimal actions based on state
+  optim &lt;- dist(optim_firm_df$tech_level[t],optim_firm_df$exp[t],optim_firm_df$foreign[t],t)
+  optim_firm_df$investment[t] &lt;- optim_choices_df$invest[optim$Closest.V1]
+  optim_firm_df$entry[t] &lt;- optim_choices_df$open[optim$Closest.V1]
+  
+  optim_firm_df$tech_level[t+1] = optim_firm_df$tech_level[t] + optim_firm_df$investment[t]
+  set.seed((t+1)*1234)
+  if (optim_firm_df$investment[t]&gt;0){
+      x0 = optim_firm_df$exp[t] * (1-kappa)
+    }
+    else {
+      x0 = optim_firm_df$exp[t]
+    }
+  aux = snssde1d(N=2,drift = drift, diffusion = diffusion, x0 = x0,M=1, type=&quot;ito&quot;,Dt=1)
+  optim_firm_df$exp[t+1] = aux$X[2]
+  optim_firm_df$shock[t+1] = aux$X[2]/aux$X[1]
+  optim_firm_df$foreign[t+1] = optim_firm_df$foreign[t] + optim_firm_df$entry[t]
+  optim_firm_df$profit[t] = (1-optim_firm_df$foreign[t])*optim_firm_df$tech_level[t]^0.5*optim_firm_df$exp[t]^0.5 * M_d +(optim_firm_df$foreign[t])*optim_firm_df$tech_level[t]^0.5*optim_firm_df$exp[t]^0.5 * M_m - (optim_firm_df$tech_level[t]+optim_firm_df$investment[t])*p_a*as.numeric(optim_firm_df$investment[t]&gt;0) - optim_firm_df$entry[t] *F_M
+  
+
+}
+  optim_firm_df$time[T] = T
+  optim_firm_df$profit[T] = (1-optim_firm_df$foreign[T])*optim_firm_df$tech_level[T]^0.5*optim_firm_df$exp[T]^0.5 * M_d + (optim_firm_df$foreign[T])*optim_firm_df$tech_level[T]^0.5*optim_firm_df$exp[T]^0.5 * M_m
+  
+  
+# plot policies
+random_firm_df$cumulated_profit = random_firm_df$profit  
+optim_firm_df$cumulated_profit = optim_firm_df$profit   
+for (t in 2:T){
+random_firm_df$cumulated_profit[t] = random_firm_df$cumulated_profit[t-1]+random_firm_df$profit[t]  
+optim_firm_df$cumulated_profit[t] = optim_firm_df$cumulated_profit[t-1]+optim_firm_df$profit[t]   
+}
+
+random_firm_df$strategy &lt;- &#39;random&#39;
+optim_firm_df$strategy &lt;- &#39;optimal&#39;
+data &lt;- rbind.data.frame(random_firm_df, optim_firm_df)
+
+p1 = ggplot()+ 
+  geom_step(data=data, aes(x=time,y=investment,colour=strategy),size=0.75,linetype=&quot;longdash&quot;)+
+  ylab(&quot;Investment&quot;)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &quot;black&quot;))+
+  #scale_color_viridis(discrete = TRUE,option = &quot;D&quot;)
+  scale_colour_manual(values = c(&#39;optimal&#39; = &quot;#0D0887FF&quot;,
+                                   &#39;random&#39; = &#39;#CC4678FF&#39;))
+  
+
+p2 = ggplot()+ 
+  geom_step(data=data, aes(x=time,y=foreign,colour=strategy),size=0.75,linetype=&quot;longdash&quot;)+
+  ylab(&quot;Entry&quot;)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &quot;black&quot;))+
+  #scale_color_viridis(discrete = TRUE,option = &quot;D&quot;)
+  scale_colour_manual(values = c(&#39;optimal&#39; = &quot;#0D0887FF&quot;,
+                                   &#39;random&#39; = &#39;#CC4678FF&#39;))
+
+p3 = ggplot()+ 
+  geom_line(data=data, aes(x=time,y=tech_level,colour=strategy),size=0.75)+
+  ylab(&quot;Technology level&quot;)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &quot;black&quot;))+
+  #scale_color_viridis(discrete = TRUE,option = &quot;D&quot;)
+  scale_colour_manual(values = c(&#39;optimal&#39; = &quot;#0D0887FF&quot;,
+                                   &#39;random&#39; = &#39;#CC4678FF&#39;))
+
+p4 = ggplot()+ 
+  geom_line(data=data, aes(x=time,y=exp,colour=strategy),size=0.75)+
+  ylab(&quot;Expertise&quot;)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &quot;black&quot;))+
+  #scale_color_viridis(discrete = TRUE,option = &quot;D&quot;)
+  scale_colour_manual(values = c(&#39;optimal&#39; = &quot;#0D0887FF&quot;,
+                                   &#39;random&#39; = &#39;#CC4678FF&#39;))
+
+p5 = ggplot()+ 
+  geom_line(data=data, aes(x=time,y=cumulated_profit,colour=strategy),size=0.75)+
+  ylab(&quot;Cumulated profit&quot;)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &quot;black&quot;))+
+  #scale_color_viridis(discrete = TRUE,option = &quot;D&quot;)
+  scale_colour_manual(values = c(&#39;optimal&#39; = &quot;#0D0887FF&quot;,
+                                   &#39;random&#39; = &#39;#CC4678FF&#39;), name=&quot;Strategy&quot;)+
+  theme(legend.key = element_rect(colour = NA, fill = NA))
+
+figure &lt;- ggpubr::ggarrange(ggpubr::ggarrange(p1, p2,ncol=2,legend = &quot;none&quot;),
+                            ggpubr::ggarrange(p3, p4,ncol=2,legend = &quot;none&quot;), 
+                            p5,
+                            nrow = 3,
+                            #labels = c(&quot;Panel A: Actions&quot;, &quot;Panel B: States&quot;, &quot;Panel C: Profit&quot;),
+                            #font.label = list(size = 11, color = &quot;black&quot;, face =&quot;bold.italic&quot;, family = NULL),
+                            vjust = 0,
+                            common.legend = TRUE, 
+                            legend = &quot;bottom&quot;)
+figure</code></pre>
+<p><img src="/project/Optimal_stochastic_control/index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/macroeconomics/">Macroeconomics</a>
+  
+  <a class="badge badge-light" href="/tag/r/">R</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/christian-roerig/avatar_hu6ee9268314d9fb0614cc386cd7c62acf_1834729_270x270_fill_q90_lanczos_center.jpg" alt="Christian Roerig">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Christian Roerig</a></h5>
+        <h6 class="card-subtitle">PhD candidate</h6>
+        <p class="card-text">My research interests include macroeconomics, development economics, applied econometrics and machine learning.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:cmr61@cam.ac.uk" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/christian-r%C3%B6rig-177a2a81/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ChristianRoerig" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/project/brazil/">Rio de Janeiro crime map</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+    <div class="project-related-pages content-widget-hr">
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+    </div>
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academic.min.6f7ce8be710290b8c431bbc97f405d15.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © 2020
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
