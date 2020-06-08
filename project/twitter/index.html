@@ -1,0 +1,1555 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Christian Roerig">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Illustration of scraping tweets with tweepy and translating them via DeepL&#39;s API.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/project/twitter/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/project/twitter/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="Christian Roerig">
+  <meta property="og:url" content="/project/twitter/">
+  <meta property="og:title" content="Twitter and DeepL | Christian Roerig">
+  <meta property="og:description" content="Illustration of scraping tweets with tweepy and translating them via DeepL&#39;s API."><meta property="og:image" content="/project/twitter/featured.png">
+  <meta property="twitter:image" content="/project/twitter/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-05-27T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-05-27T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/project/twitter/"
+  },
+  "headline": "Twitter and DeepL",
+  
+  "image": [
+    "/project/twitter/featured.png"
+  ],
+  
+  "datePublished": "2020-05-27T00:00:00Z",
+  "dateModified": "2020-05-27T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Christian Roerig"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Christian Roerig",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Illustration of scraping tweets with tweepy and translating them via DeepL's API."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Twitter and DeepL | Christian Roerig</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Christian Roerig</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Christian Roerig</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/research/"><span>Research</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#teaching_experience"><span>Teaching</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/codes/"><span>Codes</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/CV_Roerig_05_20.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article article-project">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Twitter and DeepL</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    May 27, 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h1 id="sentiment-analysis">Sentiment analysis</h1>
+<h2 id="analysing-bolsonaros-tweets-during-the-covid19-pandemic">Analysing Bolsonaro&rsquo;s tweets during the Covid19 pandemic</h2>
+<h3 id="setup">Setup</h3>
+<pre><code class="language-python"># General:
+import tweepy           # To consume Twitter's API
+import pandas as pd     # To handle data
+import numpy as np      # For number computing
+import json
+import csv
+
+# translations
+import deepl
+
+# For plotting and visualization:
+from IPython.display import display
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
+</code></pre>
+<h3 id="twitter-access">Twitter access</h3>
+<pre><code class="language-python"># read json
+with open('api_keys.json') as f:
+  credentials = json.load(f)
+</code></pre>
+<pre><code class="language-python"># API's setup:
+def twitter_setup():
+
+    # Authentication and access using keys:
+    auth = tweepy.OAuthHandler(credentials['consumer_key'], credentials['consumer_secret'])
+    auth.set_access_token(credentials['access_token'], credentials['access_token_secret'])
+
+    # Return API with authentication:
+    api = tweepy.API(auth)
+    return api
+</code></pre>
+<h3 id="get-recent-tweets-of-bolsonaro">Get recent tweets of Bolsonaro</h3>
+<pre><code class="language-python">def get_all_tweets(screen_name, credentials):
+    #Twitter only allows access to a users most recent 3240 tweets with this method
+    
+    #authorize twitter, initialize tweepy
+    auth = tweepy.OAuthHandler(credentials['consumer_key'], credentials['consumer_secret'])
+    auth.set_access_token(credentials['access_token'], credentials['access_token_secret'])
+    api = tweepy.API(auth)
+    
+    #initialize a list to hold all the tweepy Tweets
+    alltweets = []  
+    
+    #make initial request for most recent tweets (200 is the maximum allowed count)
+    new_tweets = api.user_timeline(screen_name = screen_name,count=200)
+    
+    #save most recent tweets
+    alltweets.extend(new_tweets)
+    
+    #save the id of the oldest tweet less one
+    oldest = alltweets[-1].id - 1
+    
+    #keep grabbing tweets until there are no tweets left to grab
+    while len(new_tweets) &gt; 0:
+        print(f&quot;getting tweets before {oldest}&quot;)
+        
+        #all subsiquent requests use the max_id param to prevent duplicates
+        new_tweets = api.user_timeline(screen_name = screen_name,count=200,max_id=oldest)
+        
+        #save most recent tweets
+        alltweets.extend(new_tweets)
+        
+        #update the id of the oldest tweet less one
+        oldest = alltweets[-1].id - 1
+        
+        print(f&quot;...{len(alltweets)} tweets downloaded so far&quot;)
+    return alltweets
+</code></pre>
+<pre><code class="language-python"># get tweets
+# Jair
+#alltweets = get_all_tweets(&quot;jairbolsonaro&quot;, credentials)
+
+# get sons' tweets
+# Flavio
+#alltweets = get_all_tweets(&quot;FlavioBolsonaro&quot;, credentials)
+# Carlos
+#alltweets = get_all_tweets(&quot;CarlosBolsonaro&quot;, credentials)
+# Eduardo
+alltweets = get_all_tweets(&quot;BolsonaroSP&quot;, credentials)
+</code></pre>
+<pre><code>getting tweets before 1259107396909219839
+...399 tweets downloaded so far
+getting tweets before 1256921349634822147
+...599 tweets downloaded so far
+getting tweets before 1253107691460886527
+...799 tweets downloaded so far
+getting tweets before 1250422025174171653
+...997 tweets downloaded so far
+getting tweets before 1247643770818039807
+...1196 tweets downloaded so far
+getting tweets before 1244772304640446463
+...1395 tweets downloaded so far
+getting tweets before 1242815692606451713
+...1595 tweets downloaded so far
+getting tweets before 1240322132091027456
+...1793 tweets downloaded so far
+getting tweets before 1238592246045454344
+...1992 tweets downloaded so far
+getting tweets before 1236135535988662272
+...2189 tweets downloaded so far
+getting tweets before 1234114139615879168
+...2387 tweets downloaded so far
+getting tweets before 1230336492654022655
+...2587 tweets downloaded so far
+getting tweets before 1227285030541631488
+...2786 tweets downloaded so far
+getting tweets before 1224711822189658118
+...2985 tweets downloaded so far
+getting tweets before 1221647265393082367
+...3182 tweets downloaded so far
+getting tweets before 1218929644621238280
+...3196 tweets downloaded so far
+getting tweets before 1218662810525339647
+...3196 tweets downloaded so far
+</code></pre>
+<pre><code class="language-python"># save tweets in data frame
+data = pd.DataFrame(data=[tweet.text for tweet in alltweets], columns=['Tweets'])
+#data['Tweets_en'] =  data['Tweets'].apply(translator.translate)
+data['len']  = np.array([len(tweet.text) for tweet in alltweets])
+data['ID']   = np.array([tweet.id for tweet in alltweets])
+data['Date'] = np.array([tweet.created_at for tweet in alltweets])
+data['Source'] = np.array([tweet.source for tweet in alltweets])
+data['Likes']  = np.array([tweet.favorite_count for tweet in alltweets])
+data['Retweets']    = np.array([tweet.retweet_count for tweet in alltweets])
+</code></pre>
+<pre><code class="language-python">data.head(10)
+</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Tweets</th>
+      <th>len</th>
+      <th>ID</th>
+      <th>Date</th>
+      <th>Source</th>
+      <th>Likes</th>
+      <th>Retweets</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Live com Vereador de Salvador-BA, Alexandre Al...</td>
+      <td>140</td>
+      <td>1261469981503631360</td>
+      <td>2020-05-16 01:34:15</td>
+      <td>Twitter for iPhone</td>
+      <td>1364</td>
+      <td>229</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Hoje gravei a nova edição de O Brasil Precisa ...</td>
+      <td>139</td>
+      <td>1261462877057118208</td>
+      <td>2020-05-16 01:06:01</td>
+      <td>Twitter for iPhone</td>
+      <td>4324</td>
+      <td>652</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>RT @BolsonaroSP: Exemplo a ser seguido por com...</td>
+      <td>140</td>
+      <td>1261432100651102208</td>
+      <td>2020-05-15 23:03:43</td>
+      <td>Twitter for iPhone</td>
+      <td>0</td>
+      <td>4053</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>RT @BolsonaroSP: Hoje às 20:00h farei live com...</td>
+      <td>140</td>
+      <td>1261432089502552064</td>
+      <td>2020-05-15 23:03:41</td>
+      <td>Twitter for iPhone</td>
+      <td>0</td>
+      <td>340</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>RT @jairbolsonaro: -Palácio do Planalto (15/05...</td>
+      <td>77</td>
+      <td>1261414590056771584</td>
+      <td>2020-05-15 21:54:08</td>
+      <td>Twitter for iPhone</td>
+      <td>0</td>
+      <td>5741</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Exemplo a ser seguido por comerciantes para pr...</td>
+      <td>139</td>
+      <td>1261414438554472453</td>
+      <td>2020-05-15 21:53:32</td>
+      <td>Twitter for iPhone</td>
+      <td>12722</td>
+      <td>4053</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Hoje às 20:00h farei live com o Vereador de Sa...</td>
+      <td>140</td>
+      <td>1261398834191663104</td>
+      <td>2020-05-15 20:51:32</td>
+      <td>Twitter for iPhone</td>
+      <td>1944</td>
+      <td>340</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>@Dondiegolaveg4 @jairbolsonaro https://t.co/NQ...</td>
+      <td>54</td>
+      <td>1261396631716495360</td>
+      <td>2020-05-15 20:42:47</td>
+      <td>Twitter for iPhone</td>
+      <td>371</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>@GaloVeio_GW @Gilsonmirandaj @jairbolsonaro Kk...</td>
+      <td>50</td>
+      <td>1261396533301444609</td>
+      <td>2020-05-15 20:42:23</td>
+      <td>Twitter for iPhone</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Hoje o Governo @JairBolsonaro completa 500 DIA...</td>
+      <td>140</td>
+      <td>1261395598718259200</td>
+      <td>2020-05-15 20:38:40</td>
+      <td>Twitter for iPhone</td>
+      <td>28673</td>
+      <td>5626</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<pre><code class="language-python"># save tweets to csv
+data.to_csv(&quot;Bolsonaro_Eduardo_tweets.csv&quot;,encoding='utf-8-sig')
+</code></pre>
+<h3 id="visualize-tweets-over-time">Visualize tweets over time</h3>
+<pre><code class="language-python"># crop data for COVID timeframe
+data = data.loc[data['Date'] &gt; &quot;2020-01-30 00:00:00&quot;]
+
+# Likes vs retweets visualization:
+tfav = pd.Series(data=data['Likes'].values, index=data['Date'])
+tret = pd.Series(data=data['Retweets'].values, index=data['Date'])
+tfav.plot(figsize=(16,4), label=&quot;Likes&quot;, legend=True)
+tret.plot(figsize=(16,4), label=&quot;Retweets&quot;, legend=True);
+</code></pre>
+<p><img src="output_13_0.png" alt="png"></p>
+<pre><code class="language-python">tweet_daily = pd.Series(data.groupby(pd.Grouper(key='Date', freq='D', convention='start')).size())
+tweet_daily.plot(figsize=(16,4),label=&quot;Daily tweets&quot;, legend=True)
+</code></pre>
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x21ceb1b1f48&gt;
+</code></pre>
+<p><img src="output_14_1.png" alt="png"></p>
+<h3 id="pre-process-tweets-for-topicsentiment-analysis">Pre-process tweets for topic/sentiment analysis</h3>
+<pre><code class="language-python"># Drop short tweets (likely URLs)
+data = data.loc[data['len'] &gt; 25]
+
+# Drop URLs in Tweets
+import re
+for index, row in data.iterrows():
+    row[&quot;Tweets&quot;] = re.sub(r'http\S+', '', row[&quot;Tweets&quot;])
+</code></pre>
+<pre><code class="language-python">len(data)
+</code></pre>
+<pre><code>2911
+</code></pre>
+<pre><code class="language-python"># Translate tweets
+import requests
+
+def translate(text_to_translate):
+    text = {
+    'auth_key': (None, '3387d291-62f1-85c6-e750-e008a06893bf'),
+    'text': (None, text_to_translate),
+    'target_lang': (None, 'EN')
+    }
+    response = requests.post('https://api.deepl.com/v2/translate', files=text)
+    translation_json = json.loads(response.text)
+    translation = translation_json['translations'][0]['text']
+    return translation
+
+data[&quot;Tweets_en&quot;] = data[&quot;Tweets&quot;].apply(translate)
+# Save translated tweets
+data.to_csv(&quot;Bolsonaro_Eduardo_tweets_en.csv&quot;,encoding='utf-8-sig')
+</code></pre>
+<pre><code class="language-python"># read in translated tweets
+data = pd.read_csv(&quot;Bolsonaro_Eduardo_tweets_en.csv&quot;,encoding='utf-8-sig')
+#data['Date'] = pd.to_datetime(data['Date'], format='%d-%m-%Y %H:%M')
+#data['Date'] = data['Date'].dt.strftime('%m/%d/%Y %H:%M')
+#data = data.set_index('Date')
+</code></pre>
+<pre><code class="language-python">data.head(10)
+</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>Tweets</th>
+      <th>len</th>
+      <th>ID</th>
+      <th>Date</th>
+      <th>Source</th>
+      <th>Likes</th>
+      <th>Retweets</th>
+      <th>Tweets_en</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>Live com Vereador de Salvador-BA, Alexandre Al...</td>
+      <td>140</td>
+      <td>1261469981503631360</td>
+      <td>2020-05-16 01:34:15</td>
+      <td>Twitter for iPhone</td>
+      <td>1364</td>
+      <td>229</td>
+      <td>Live with Salvador-BA Councilman Alexandre All...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>Hoje gravei a nova edição de O Brasil Precisa ...</td>
+      <td>139</td>
+      <td>1261462877057118208</td>
+      <td>2020-05-16 01:06:01</td>
+      <td>Twitter for iPhone</td>
+      <td>4324</td>
+      <td>652</td>
+      <td>Today I recorded the new edition of O Brasil P...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>RT @BolsonaroSP: Exemplo a ser seguido por com...</td>
+      <td>140</td>
+      <td>1261432100651102208</td>
+      <td>2020-05-15 23:03:43</td>
+      <td>Twitter for iPhone</td>
+      <td>0</td>
+      <td>4053</td>
+      <td>RT @BolsonaroSP: Example to be followed by tra...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>RT @BolsonaroSP: Hoje às 20:00h farei live com...</td>
+      <td>140</td>
+      <td>1261432089502552064</td>
+      <td>2020-05-15 23:03:41</td>
+      <td>Twitter for iPhone</td>
+      <td>0</td>
+      <td>340</td>
+      <td>RT @BolsonaroSP: Today at 8:00 pm I'll do live...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>RT @jairbolsonaro: -Palácio do Planalto (15/05...</td>
+      <td>77</td>
+      <td>1261414590056771584</td>
+      <td>2020-05-15 21:54:08</td>
+      <td>Twitter for iPhone</td>
+      <td>0</td>
+      <td>5741</td>
+      <td>RT @jairbolsonaro: -PalÃ¡cio do Planalto (15/0...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>Exemplo a ser seguido por comerciantes para pr...</td>
+      <td>139</td>
+      <td>1261414438554472453</td>
+      <td>2020-05-15 21:53:32</td>
+      <td>Twitter for iPhone</td>
+      <td>12722</td>
+      <td>4053</td>
+      <td>Example to be followed by traders to press gov...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>Hoje às 20:00h farei live com o Vereador de Sa...</td>
+      <td>140</td>
+      <td>1261398834191663104</td>
+      <td>2020-05-15 20:51:32</td>
+      <td>Twitter for iPhone</td>
+      <td>1944</td>
+      <td>340</td>
+      <td>Today at 8:00 pm I will live with the Councill...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+      <td>@Dondiegolaveg4 @jairbolsonaro https://t.co/NQ...</td>
+      <td>54</td>
+      <td>1261396631716495360</td>
+      <td>2020-05-15 20:42:47</td>
+      <td>Twitter for iPhone</td>
+      <td>371</td>
+      <td>67</td>
+      <td>@Dondiegolaveg4 @jairbolsonaro https://t.co/NQ...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+      <td>@GaloVeio_GW @Gilsonmirandaj @jairbolsonaro Kk...</td>
+      <td>50</td>
+      <td>1261396533301444609</td>
+      <td>2020-05-15 20:42:23</td>
+      <td>Twitter for iPhone</td>
+      <td>2</td>
+      <td>0</td>
+      <td>@GaloVeio_GW @Gilsonmirandaj @jairbolsonaro Kkkkk</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+      <td>Hoje o Governo @JairBolsonaro completa 500 DIA...</td>
+      <td>140</td>
+      <td>1261395598718259200</td>
+      <td>2020-05-15 20:38:40</td>
+      <td>Twitter for iPhone</td>
+      <td>28673</td>
+      <td>5626</td>
+      <td>Today the government @JairBolsonaro completes ...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h4 id="tokenize-and-lemmatize-tweets">Tokenize and lemmatize tweets</h4>
+<pre><code class="language-python"># function to tokenize tweets
+import spacy
+import re
+spacy.load('en_core_web_sm')
+from spacy.lang.en import English
+parser = English()
+def tokenize(text):
+    lda_tokens = []
+    tokens = parser(text)
+    for token in tokens:
+        if token.orth_.isspace():
+            continue
+        elif token.like_url:
+            lda_tokens.append('URL')
+        elif token.orth_.startswith('@'):
+            lda_tokens.append('')
+        else:
+            lda_tokens.append(token.lower_)
+    return lda_tokens
+
+# function to lemmatize tweets
+import nltk
+nltk.download('wordnet')
+from nltk.corpus import wordnet as wn
+def get_lemma(word):
+    lemma = wn.morphy(word)
+    if lemma is None:
+        return word
+    else:
+        return lemma
+      
+from nltk.stem.wordnet import WordNetLemmatizer
+def get_lemma2(word):
+    return WordNetLemmatizer().lemmatize(word)
+
+# look up stopwords  
+nltk.download('stopwords')
+en_stop = set(nltk.corpus.stopwords.words('english'))
+# Additional stop words to be removed from text
+additional_stop_words=['twitter','com','pic','rt','via','youtube']
+
+# function to clean tweets, i.e. tokenizing and lemmatizing
+def prepare_text_for_lda(text):
+    tokens = tokenize(text)
+    tokens = [token for token in tokens if len(token) &gt; 4]
+    tokens = [token for token in tokens if token not in en_stop]
+    tokens = [token for token in tokens if token not in additional_stop_words]
+    tokens = [get_lemma(token) for token in tokens]
+    return tokens
+
+data[&quot;Tweets_processed&quot;] = data[&quot;Tweets_en&quot;].apply(prepare_text_for_lda)
+</code></pre>
+<pre><code>[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\chris\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+[nltk_data] Downloading package stopwords to
+[nltk_data]     C:\Users\chris\AppData\Roaming\nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+</code></pre>
+<pre><code class="language-python">data[&quot;Tweets_processed&quot;][1:10]
+</code></pre>
+<pre><code>1    [today, record, edition, brasil, precisa, sabe...
+2    [example, follow, trader, pressure, governor, ...
+3    [today, councillor, salvador, alexandre, alelu...
+4                  [-palã¡cio, planalto, 15/05, 17:40]
+5    [example, follow, trader, press, governor, tra...
+6    [today, councillor, salvador, alexandre, alelu...
+7                                                   []
+8                                              [kkkkk]
+9    [today, government, complete, first, brazil, w...
+Name: Tweets_processed, dtype: object
+</code></pre>
+<pre><code class="language-python"># FIXME: Add bigrams
+</code></pre>
+<h4 id="filter-topics-related-to-covid-19">Filter topics related to Covid-19</h4>
+<pre><code class="language-python">keywords = ['covid-19','vocid-19', 'coronavirus', 'pandemic', 'hospital','emergency','distancing','social','distance','demonstration','test','equipment','health','measure']
+covid_subsample = data[pd.DataFrame(data.Tweets_processed.tolist()).isin(keywords).any(1)]
+</code></pre>
+<pre><code class="language-python">covid_subsample[&quot;Tweets_processed&quot;][1:5]
+</code></pre>
+<pre><code>10    [difficulty, cause, pandemic, brazilian, agric...
+16                           [relative, need, hospital]
+23                           [relative, need, hospital]
+26    [coronavirus, attack, lung, virus, attack, jou...
+Name: Tweets_processed, dtype: object
+</code></pre>
+<pre><code class="language-python">len(covid_subsample)
+</code></pre>
+<pre><code>356
+</code></pre>
+<h3 id="lda-topic-analysis">LDA topic analysis</h3>
+<pre><code class="language-python">text_data = covid_subsample[&quot;Tweets_processed&quot;]
+from gensim import corpora
+dictionary = corpora.Dictionary(text_data)
+corpus = [dictionary.doc2bow(text) for text in text_data]
+import pickle
+pickle.dump(corpus, open('corpus.pkl', 'wb'))
+dictionary.save('dictionary.gensim')
+</code></pre>
+<pre><code class="language-python">import gensim
+NUM_TOPICS = 4
+ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics = NUM_TOPICS, id2word=dictionary, passes=15)
+ldamodel.save('model5.gensim')
+topics = ldamodel.print_topics(num_words=6)
+for topic in topics:
+    print(topic)
+</code></pre>
+<pre><code>(0, '0.024*&quot;social&quot; + 0.024*&quot;coronavirus&quot; + 0.019*&quot;network&quot; + 0.015*&quot;test&quot; + 0.013*&quot;health&quot; + 0.009*&quot;emergency&quot;')
+(1, '0.018*&quot;pandemic&quot; + 0.018*&quot;people&quot; + 0.013*&quot;covid-19&quot; + 0.012*&quot;government&quot; + 0.012*&quot;coronavirus&quot; + 0.011*&quot;measure&quot;')
+(2, '0.026*&quot;covid-19&quot; + 0.016*&quot;coronavirus&quot; + 0.015*&quot;hydroxychloroquine&quot; + 0.012*&quot;doctor&quot; + 0.010*&quot;health&quot; + 0.009*&quot;demonstration&quot;')
+(3, '0.062*&quot;coronavirus&quot; + 0.022*&quot;president&quot; + 0.018*&quot;health&quot; + 0.018*&quot;measure&quot; + 0.017*&quot;government&quot; + 0.011*&quot;fight&quot;')
+</code></pre>
+<pre><code class="language-python">dictionary = gensim.corpora.Dictionary.load('dictionary.gensim')
+corpus = pickle.load(open('corpus.pkl', 'rb'))
+lda = gensim.models.ldamodel.LdaModel.load('model5.gensim')
+import pyLDAvis.gensim
+lda_display = pyLDAvis.gensim.prepare(lda, corpus, dictionary, sort_topics=False)
+pyLDAvis.display(lda_display)
+</code></pre>
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.css">
+<div id="ldavis_el786423234483639764619859254"></div>
+<script type="text/javascript">
+<p>var ldavis_el786423234483639764619859254_data = {&ldquo;mdsDat&rdquo;: {&ldquo;x&rdquo;: [0.09331666753072418, 0.004057134324795556, 0.029237589104836426, -0.12661139096035615], &ldquo;y&rdquo;: [0.01985069631040109, -0.1167279040821729, 0.06985568966988137, 0.02702151810189052], &ldquo;topics&rdquo;: [1, 2, 3, 4], &ldquo;cluster&rdquo;: [1, 1, 1, 1], &ldquo;Freq&rdquo;: [24.470203399658203, 19.649639129638672, 16.3651123046875, 39.51504898071289]}, &ldquo;tinfo&rdquo;: {&ldquo;Term&rdquo;: [&ldquo;network&rdquo;, &ldquo;social&rdquo;, &ldquo;people&rdquo;, &ldquo;president&rdquo;, &ldquo;hydroxychloroquine&rdquo;, &ldquo;covid-19&rdquo;, &ldquo;test&rdquo;, &ldquo;doctor&rdquo;, &ldquo;pandemic&rdquo;, &ldquo;measure&rdquo;, &ldquo;coronavirus&rdquo;, &ldquo;case&rdquo;, &ldquo;brazil&rdquo;, &ldquo;combat&rdquo;, &ldquo;billion&rdquo;, &ldquo;treatment&rdquo;, &ldquo;fight&rdquo;, &ldquo;arrest&rdquo;, &ldquo;take&rdquo;, &ldquo;witzel&rdquo;, &ldquo;street&rdquo;, &ldquo;negative&rdquo;, &ldquo;vocid-19&rdquo;, &ldquo;office&rdquo;, &ldquo;bolsonaro&rdquo;, &ldquo;science&rdquo;, &ldquo;prevent&rdquo;, &ldquo;positive&rdquo;, &ldquo;advisor&rdquo;, &ldquo;phares&rdquo;, &ldquo;network&rdquo;, &ldquo;defend&rdquo;, &ldquo;shooting&rdquo;, &ldquo;pistol&rdquo;, &ldquo;thing&rdquo;, &ldquo;anyone&rdquo;, &ldquo;profile&rdquo;, &ldquo;provide&rdquo;, &ldquo;money&rdquo;, &ldquo;defense&rdquo;, &ldquo;social&rdquo;, &ldquo;positive&rdquo;, &ldquo;collapse&rdquo;, &ldquo;13,979&rdquo;, &ldquo;control&rdquo;, &ldquo;average&rdquo;, &ldquo;approve&rdquo;, &ldquo;flexibility&rdquo;, &ldquo;recife&rdquo;, &ldquo;capital&rdquo;, &ldquo;expenditure&rdquo;, &ldquo;question&rdquo;, &ldquo;criticize&rdquo;, &ldquo;phone&rdquo;, &ldquo;camuflagem&rdquo;, &ldquo;sauer&rdquo;, &ldquo;recently&rdquo;, &ldquo;coming&rdquo;, &ldquo;stadium&rdquo;, &ldquo;become&rdquo;, &ldquo;medium&rdquo;, &ldquo;test&rdquo;, &ldquo;arrive&rdquo;, &ldquo;would&rdquo;, &ldquo;state&rdquo;, &ldquo;press&rdquo;, &ldquo;attack&rdquo;, &ldquo;emergency&rdquo;, &ldquo;coronavirus&rdquo;, &ldquo;health&rdquo;, &ldquo;brasilia&rdquo;, &ldquo;hospital&rdquo;, &ldquo;congress&rdquo;, &ldquo;still&rdquo;, &ldquo;system&rdquo;, &ldquo;world&rdquo;, &ldquo;already&rdquo;, &ldquo;always&rdquo;, &ldquo;support&rdquo;, &ldquo;government&rdquo;, &ldquo;federal&rdquo;, &ldquo;release&rdquo;, &ldquo;president&rdquo;, &ldquo;covid-19&rdquo;, &ldquo;demonstration&rdquo;, &ldquo;distance&rdquo;, &ldquo;science&rdquo;, &ldquo;prevent&rdquo;, &ldquo;elderly&rdquo;, &ldquo;study&rdquo;, &ldquo;60000&rdquo;, &ldquo;prudent&rdquo;, &ldquo;flag&rdquo;, &ldquo;overcrowd&rdquo;, &ldquo;preach&rdquo;, &ldquo;child&rdquo;, &ldquo;want&rdquo;, &ldquo;birthday&rdquo;, &ldquo;security&rdquo;, &ldquo;-found&rdquo;, &ldquo;confrontation&rdquo;, &ldquo;natural&rdquo;, &ldquo;-citizens&rdquo;, &ldquo;protection&rdquo;, &ldquo;serious&rdquo;, &ldquo;spend&rdquo;, &ldquo;start&rdquo;, &ldquo;everything&rdquo;, &ldquo;think&rdquo;, &ldquo;demand&rdquo;, &ldquo;website&rdquo;, &ldquo;technology&rdquo;, &ldquo;destoa&rdquo;, &ldquo;revenue&rdquo;, &ldquo;dealer&rdquo;, &ldquo;seize&rdquo;, &ldquo;people&rdquo;, &ldquo;pandemic&rdquo;, &ldquo;brazil&rdquo;, &ldquo;number&rdquo;, &ldquo;covid-19&rdquo;, &ldquo;government&rdquo;, &ldquo;measure&rdquo;, &ldquo;federal&rdquo;, &ldquo;death&rdquo;, &ldquo;health&rdquo;, &ldquo;fight&rdquo;, &ldquo;minister&rdquo;, &ldquo;today&rdquo;, &ldquo;hospital&rdquo;, &ldquo;coronavirus&rdquo;, &ldquo;social&rdquo;, &ldquo;without&rdquo;, &ldquo;infect&rdquo;, &ldquo;always&rdquo;, &ldquo;demonstration&rdquo;, &ldquo;covid&rdquo;, &ldquo;speech&rdquo;, &ldquo;medical&rdquo;, &ldquo;presence&rdquo;, &ldquo;suspicion&rdquo;, &ldquo;governor&rdquo;, &ldquo;quarantine&rdquo;, &ldquo;distance&rdquo;, &ldquo;street&rdquo;, &ldquo;negative&rdquo;, &ldquo;vocid-19&rdquo;, &ldquo;advisor&rdquo;, &ldquo;phares&rdquo;, &ldquo;courage&rdquo;, &ldquo;doctor&rdquo;, &ldquo;hydroxychloroquine&rdquo;, &ldquo;consider&rdquo;, &ldquo;case&rdquo;, &ldquo;price&rdquo;, &ldquo;protect&rdquo;, &ldquo;26-year&rdquo;, &ldquo;energy&rdquo;, &ldquo;try&rdquo;, &ldquo;covidan&rdquo;, &ldquo;lastly&rdquo;, &ldquo;relative&rdquo;, &ldquo;inflate&rdquo;, &ldquo;afraid&rdquo;, &ldquo;malaysia&rdquo;, &ldquo;since&rdquo;, &ldquo;-secretary&rdquo;, &ldquo;1,000&rdquo;, &ldquo;demonstrate&rdquo;, &ldquo;comparison&rdquo;, &ldquo;office&rdquo;, &ldquo;singer&rdquo;, &ldquo;baianos&rdquo;, &ldquo;timel&rdquo;, &ldquo;respirator&rdquo;, &ldquo;arrest&rdquo;, &ldquo;works&rdquo;, &ldquo;treatment&rdquo;, &ldquo;covid-19&rdquo;, &ldquo;witzel&rdquo;, &ldquo;demonstration&rdquo;, &ldquo;test&rdquo;, &ldquo;coronavirus&rdquo;, &ldquo;hospital&rdquo;, &ldquo;health&rdquo;, &ldquo;epidemic&rdquo;, &ldquo;report&rdquo;, &ldquo;never&rdquo;, &ldquo;pandemic&rdquo;, &ldquo;article&rdquo;, &ldquo;death&rdquo;, &ldquo;emergency&rdquo;, &ldquo;bolsonaro&rdquo;, &ldquo;place&rdquo;, &ldquo;take&rdquo;, &ldquo;video&rdquo;, &ldquo;contract&rdquo;, &ldquo;teich&rdquo;, &ldquo;nelson&rdquo;, &ldquo;announce&rdquo;, &ldquo;combat&rdquo;, &ldquo;billion&rdquo;, &ldquo;little&rdquo;, &ldquo;march&rdquo;, &ldquo;campaign&rdquo;, &ldquo;president&rdquo;, &ldquo;spoke&rdquo;, &ldquo;globo&rdquo;, &ldquo;videoconference&rdquo;, &ldquo;prevention&rdquo;, &ldquo;result&rdquo;, &ldquo;check&rdquo;, &ldquo;doria&rdquo;, &ldquo;country&rdquo;, &ldquo;situation&rdquo;, &ldquo;delivery&rdquo;, &ldquo;15,000&rdquo;, &ldquo;3,000&rdquo;, &ldquo;watch&rdquo;, &ldquo;thousand&rdquo;, &ldquo;bolsonaro&rdquo;, &ldquo;secret&rdquo;, &ldquo;record&rdquo;, &ldquo;decide&rdquo;, &ldquo;coronavirus&rdquo;, &ldquo;measure&rdquo;, &ldquo;corona&rdquo;, &ldquo;fight&rdquo;, &ldquo;action&rdquo;, &ldquo;government&rdquo;, &ldquo;minister&rdquo;, &ldquo;health&rdquo;, &ldquo;release&rdquo;, &ldquo;demonstration&rdquo;, &ldquo;support&rdquo;, &ldquo;share&rdquo;, &ldquo;paulo&rdquo;, &ldquo;trump&rdquo;, &ldquo;today&rdquo;, &ldquo;covid-19&rdquo;, &ldquo;emergency&rdquo;, &ldquo;pandemic&rdquo;, &ldquo;hospital&rdquo;, &ldquo;death&rdquo;], &ldquo;Freq&rdquo;: [12.0, 20.0, 13.0, 26.0, 8.0, 33.0, 14.0, 6.0, 20.0, 25.0, 92.0, 4.0, 11.0, 11.0, 11.0, 6.0, 16.0, 6.0, 8.0, 7.0, 3.0, 3.0, 3.0, 3.0, 13.0, 3.0, 3.0, 4.0, 2.0, 2.0, 11.969191551208496, 2.9692983627319336, 2.967947006225586, 2.9679315090179443, 2.967642068862915, 2.962177276611328, 2.2705984115600586, 2.26706862449646, 2.2632815837860107, 2.2594943046569824, 15.54395866394043, 3.6728954315185547, 2.098874807357788, 1.5718984603881836, 1.5718973875045776, 1.5718960762023926, 1.571895718574524, 1.5718954801559448, 1.5718951225280762, 1.5718947649002075, 1.5718940496444702, 1.5718930959701538, 1.5718905925750732, 1.5718870162963867, 1.5718847513198853, 1.5718810558319092, 1.5718793869018555, 1.571874976158142, 1.571864128112793, 1.5718398094177246, 3.6517844200134277, 9.811744689941406, 2.9735989570617676, 3.6851511001586914, 3.657034397125244, 3.432622194290161, 2.2784323692321777, 5.576033592224121, 15.364423751831055, 8.260237693786621, 2.9816362857818604, 5.07114315032959, 2.2706243991851807, 2.2684030532836914, 2.2553746700286865, 2.27921199798584, 2.9696202278137207, 2.5602970123291016, 3.3759515285491943, 5.028782367706299, 3.187826633453369, 2.977470874786377, 3.652317762374878, 3.7548177242279053, 2.9509401321411133, 2.278872013092041, 2.8293302059173584, 2.8259694576263428, 2.163754940032959, 2.1471714973449707, 1.4979556798934937, 1.4979532957077026, 1.4979493618011475, 1.4979486465454102, 1.4979485273361206, 1.497946858406067, 1.4979461431503296, 1.4979413747787476, 1.4979413747787476, 1.497941017150879, 1.4979407787322998, 1.4979404211044312, 1.4979356527328491, 1.4979265928268433, 1.4979169368743896, 1.4979157447814941, 1.497912049293518, 1.4979093074798584, 1.497908592224121, 1.4978998899459839, 1.4978547096252441, 1.4977227449417114, 1.4970115423202515, 1.4965927600860596, 1.4965829849243164, 1.4965721368789673, 9.445122718811035, 9.459224700927734, 5.526413917541504, 2.1551568508148193, 6.925489902496338, 6.425810813903809, 5.561095714569092, 3.239954710006714, 3.184537410736084, 5.507724761962891, 3.6625351905822754, 3.1077077388763428, 2.8441126346588135, 3.5040841102600098, 6.083441257476807, 3.3045806884765625, 2.1735339164733887, 2.176668882369995, 1.867630124092102, 2.1615962982177734, 1.5056294202804565, 1.5045444965362549, 1.5035334825515747, 1.5032459497451782, 1.502978801727295, 1.5068668127059937, 1.506690502166748, 1.5049628019332886, 2.6797733306884766, 2.6746068000793457, 2.6550285816192627, 2.0567429065704346, 2.0567357540130615, 2.0553698539733887, 5.115640640258789, 6.5093607902526855, 1.9274297952651978, 3.3346312046051025, 1.4238953590393066, 1.4238927364349365, 1.4238871335983276, 1.4238840341567993, 1.4238804578781128, 1.4238784313201904, 1.423833966255188, 1.4237723350524902, 1.4222509860992432, 1.4203354120254517, 1.4204788208007812, 1.4203989505767822, 1.416504979133606, 1.4165027141571045, 1.40654456615448, 1.3865652084350586, 2.702932596206665, 0.7910041213035583, 0.7910033464431763, 0.7910033464431763, 1.8358712196350098, 3.3313181400299072, 1.425106406211853, 2.9689927101135254, 11.07068920135498, 2.6712400913238525, 3.974093437194824, 3.389704465866089, 7.016455173492432, 3.3223085403442383, 4.247829437255859, 2.063446283340454, 2.058943033218384, 2.0717885494232178, 2.6870601177215576, 1.7378450632095337, 2.0614445209503174, 1.7528276443481445, 1.6694772243499756, 1.4424687623977661, 7.758479595184326, 4.733194351196289, 4.733081340789795, 4.730428218841553, 4.724939823150635, 4.701956272125244, 10.06789779663086, 10.043389320373535, 3.9757847785949707, 3.218480110168457, 3.2181215286254883, 22.89010238647461, 2.4611079692840576, 2.461091995239258, 2.461050033569336, 2.4590845108032227, 2.4573867321014404, 2.4513943195343018, 5.496762275695801, 5.497840404510498, 2.4176268577575684, 2.4147489070892334, 2.41471791267395, 2.4147098064422607, 4.738451957702637, 2.379364013671875, 11.165138244628906, 1.7037982940673828, 1.7037937641143799, 1.7037912607192993, 64.21432495117188, 18.311147689819336, 7.024102687835693, 11.994039535522461, 6.230185508728027, 17.306949615478516, 8.194271087646484, 19.08055305480957, 6.264878273010254, 9.277922630310059, 6.347862243652344, 3.981909990310669, 3.219810724258423, 3.222810983657837, 5.501864910125732, 11.914777755737305, 6.04581356048584, 7.094889163970947, 5.475218296051025, 4.34887170791626], &ldquo;Total&rdquo;: [12.0, 20.0, 13.0, 26.0, 8.0, 33.0, 14.0, 6.0, 20.0, 25.0, 92.0, 4.0, 11.0, 11.0, 11.0, 6.0, 16.0, 6.0, 8.0, 7.0, 3.0, 3.0, 3.0, 3.0, 13.0, 3.0, 3.0, 4.0, 2.0, 2.0, 12.561468124389648, 3.48340106010437, 3.4835004806518555, 3.483499765396118, 3.4835267066955566, 3.482820987701416, 2.7846996784210205, 2.784468412399292, 2.783989667892456, 2.7837255001068115, 20.012794494628906, 4.815404415130615, 2.7684686183929443, 2.08599591255188, 2.085996627807617, 2.085995674133301, 2.085995674133301, 2.08599591255188, 2.085996150970459, 2.08599591255188, 2.0859954357147217, 2.085995674133301, 2.085995674133301, 2.0859951972961426, 2.085994243621826, 2.085994243621826, 2.085994005203247, 2.085994243621826, 2.0859928131103516, 2.0859899520874023, 4.935197353363037, 14.968985557556152, 4.240230083465576, 6.2036261558532715, 6.265993595123291, 6.305426120758057, 3.5412206649780273, 13.552291870117188, 92.67864227294922, 37.096343994140625, 6.408073425292969, 17.37275505065918, 4.050435543060303, 4.116152763366699, 4.11503791809082, 4.206917762756348, 7.270017623901367, 5.4320220947265625, 10.86260986328125, 29.584049224853516, 9.857355117797852, 10.17869758605957, 26.899085998535156, 33.665771484375, 18.364551544189453, 4.871782302856445, 3.3519210815429688, 3.352262020111084, 2.6860692501068115, 2.685305595397949, 2.020251750946045, 2.020251512527466, 2.0202512741088867, 2.0202512741088867, 2.020251750946045, 2.0202512741088867, 2.0202507972717285, 2.0202505588531494, 2.0202507972717285, 2.0202510356903076, 2.0202510356903076, 2.0202507972717285, 2.0202507972717285, 2.020249605178833, 2.020249843597412, 2.020249843597412, 2.020249128341675, 2.020249366760254, 2.0202488899230957, 2.0202488899230957, 2.0202465057373047, 2.0202832221984863, 2.020291566848755, 2.020346164703369, 2.02034330368042, 2.0203332901000977, 13.68616771697998, 20.763633728027344, 11.894487380981445, 3.320558786392212, 33.665771484375, 29.584049224853516, 25.578767776489258, 9.857355117797852, 10.445367813110352, 37.096343994140625, 16.800739288330078, 12.34029769897461, 9.98554801940918, 17.37275505065918, 92.67864227294922, 20.012794494628906, 6.295209884643555, 7.677928447723389, 5.4320220947265625, 18.364551544189453, 2.776247501373291, 2.7765204906463623, 2.7766637802124023, 2.7767043113708496, 2.776730537414551, 6.382038593292236, 4.930583953857422, 4.871782302856445, 3.221454620361328, 3.2231173515319824, 3.2254631519317627, 2.587334156036377, 2.5873348712921143, 2.587606191635132, 6.478824615478516, 8.413235664367676, 2.594069480895996, 4.551112651824951, 1.9544305801391602, 1.9544308185577393, 1.954431176185608, 1.954431176185608, 1.9544312953948975, 1.9544310569763184, 1.954443335533142, 1.9544322490692139, 1.9547486305236816, 1.9547251462936401, 1.9550905227661133, 1.9551061391830444, 1.9558802843093872, 1.9558809995651245, 1.9561676979064941, 1.9616857767105103, 3.974799156188965, 1.3215265274047852, 1.3215264081954956, 1.3215265274047852, 3.3879716396331787, 6.696798801422119, 2.6201000213623047, 6.192168235778809, 33.665771484375, 7.010533332824707, 18.364551544189453, 14.968985557556152, 92.67864227294922, 17.37275505065918, 37.096343994140625, 5.614768981933594, 5.616025924682617, 7.525625705718994, 20.763633728027344, 4.119144439697266, 10.445367813110352, 13.552291870117188, 13.958045959472656, 4.163941383361816, 8.261680603027344, 5.23272180557251, 5.232701301574707, 5.232457637786865, 5.232053279876709, 5.227805137634277, 11.235363960266113, 11.232739448547363, 4.475346088409424, 3.717989683151245, 3.7179436683654785, 26.899085998535156, 2.960620403289795, 2.9606170654296875, 2.960608959197998, 2.960444211959839, 2.9600272178649902, 2.9595611095428467, 6.656572341918945, 6.689100742340088, 2.955324411392212, 2.952975273132324, 2.952970504760742, 2.9529690742492676, 5.866414546966553, 2.9471471309661865, 13.958045959472656, 2.2032601833343506, 2.2032597064971924, 2.203259229660034, 92.67864227294922, 25.578767776489258, 9.53664779663086, 16.800739288330078, 8.743877410888672, 29.584049224853516, 12.34029769897461, 37.096343994140625, 10.17869758605957, 18.364551544189453, 10.86260986328125, 5.774742126464844, 4.383875846862793, 4.41689920425415, 9.98554801940918, 33.665771484375, 13.552291870117188, 20.763633728027344, 17.37275505065918, 10.445367813110352], &ldquo;Category&rdquo;: [&ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Default&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic1&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic2&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic3&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;, &ldquo;Topic4&rdquo;], &ldquo;logprob&rdquo;: [30.0, 29.0, 28.0, 27.0, 26.0, 25.0, 24.0, 23.0, 22.0, 21.0, 20.0, 19.0, 18.0, 17.0, 16.0, 15.0, 14.0, 13.0, 12.0, 11.0, 10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0, -3.9885001182556152, -5.382500171661377, -5.382900238037109, -5.382999897003174, -5.3831000328063965, -5.384900093078613, -5.6508002281188965, -5.652299880981445, -5.6539998054504395, -5.655700206756592, -3.727099895477295, -5.1697998046875, -5.729400157928467, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018499851226807, -6.018599987030029, -6.018599987030029, -6.018599987030029, -5.175600051879883, -4.18720006942749, -5.38100004196167, -5.166500091552734, -5.174200057983398, -5.237500190734863, -5.647299766540527, -4.752299785614014, -3.738800048828125, -4.359399795532227, -5.378300189971924, -4.847300052642822, -5.6508002281188965, -5.651700019836426, -5.65749979019165, -5.646999835968018, -5.382400035858154, -5.530700206756592, -5.2540998458862305, -4.855599880218506, -5.311500072479248, -5.379700183868408, -5.17549991607666, -5.147799968719482, -5.388700008392334, -5.64709997177124, -5.211400032043457, -5.212600231170654, -5.479599952697754, -5.487299919128418, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847300052642822, -5.847400188446045, -5.847400188446045, -5.847400188446045, -5.847400188446045, -5.847400188446045, -5.847499847412109, -5.8480000495910645, -5.848199844360352, -5.848199844360352, -5.848199844360352, -4.005899906158447, -4.00439977645874, -4.541900157928467, -5.48360013961792, -4.316199779510498, -4.39109992980957, -4.535600185394287, -5.075900077819824, -5.093100070953369, -4.545300006866455, -4.9532999992370605, -5.117499828338623, -5.206200122833252, -4.997499942779541, -4.445899963378906, -5.056099891662598, -5.475100040435791, -5.473599910736084, -5.626800060272217, -5.480599880218506, -5.842199802398682, -5.842899799346924, -5.843599796295166, -5.843800067901611, -5.843999862670898, -5.841400146484375, -5.8414998054504395, -5.842700004577637, -5.082799911499023, -5.084700107574463, -5.092100143432617, -5.347400188446045, -5.347400188446045, -5.348100185394287, -4.436200141906738, -4.195300102233887, -5.412300109863281, -4.864200115203857, -5.715099811553955, -5.715099811553955, -5.715099811553955, -5.715099811553955, -5.715099811553955, -5.715099811553955, -5.715199947357178, -5.715199947357178, -5.716300010681152, -5.717599868774414, -5.71750020980835, -5.717599868774414, -5.720300197601318, -5.720300197601318, -5.727399826049805, -5.741700172424316, -5.07420015335083, -6.302999973297119, -6.302999973297119, -6.302999973297119, -5.460999965667725, -4.865099906921387, -5.714300155639648, -4.980299949645996, -3.6642000675201416, -5.085999965667725, -4.688700199127197, -4.847799777984619, -4.120299816131592, -4.8678998947143555, -4.622099876403809, -5.344099998474121, -5.34630012512207, -5.340099811553955, -5.080100059509277, -5.515900135040283, -5.345099925994873, -5.507299900054932, -5.556000232696533, -5.702199935913086, -4.901299953460693, -5.395400047302246, -5.395500183105469, -5.395999908447266, -5.397200107574463, -5.402100086212158, -4.640699863433838, -4.643099784851074, -5.569799900054932, -5.781099796295166, -5.781199932098389, -3.8192999362945557, -6.0493998527526855, -6.0493998527526855, -6.049499988555908, -6.050300121307373, -6.050899982452393, -6.053400039672852, -5.2459001541137695, -5.245699882507324, -6.067299842834473, -6.068399906158447, -6.06850004196167, -6.06850004196167, -5.3942999839782715, -6.083199977874756, -4.537199974060059, -6.417200088500977, -6.417200088500977, -6.417200088500977, -2.7878000736236572, -4.042500019073486, -5.000699996948242, -4.46560001373291, -5.12060022354126, -4.098899841308594, -4.84660005569458, -4.001399993896484, -5.115099906921387, -4.722400188446045, -5.101900100708008, -5.568299770355225, -5.780700206756592, -5.779799938201904, -5.244999885559082, -4.472300052642822, -5.150700092315674, -4.990699768066406, -5.249800205230713, -5.480100154876709], &ldquo;loglift&rdquo;: [30.0, 29.0, 28.0, 27.0, 26.0, 25.0, 24.0, 23.0, 22.0, 21.0, 20.0, 19.0, 18.0, 17.0, 16.0, 15.0, 14.0, 13.0, 12.0, 11.0, 10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0, 1.3594000339508057, 1.2480000257492065, 1.247499942779541, 1.247499942779541, 1.2474000453948975, 1.2458000183105469, 1.2036000490188599, 1.2021000385284424, 1.200600028038025, 1.1991000175476074, 1.1549999713897705, 1.1368999481201172, 1.1308000087738037, 1.1247999668121338, 1.1247999668121338, 1.1247999668121338, 1.1247999668121338, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1246999502182007, 1.1065000295639038, 0.9853000044822693, 1.052899956703186, 0.886900007724762, 0.8691999912261963, 0.7996000051498413, 0.96670001745224, 0.519599974155426, -0.38940000534057617, -0.09440000355243683, 0.6425999999046326, 0.17640000581741333, 0.8288999795913696, 0.8119000196456909, 0.8064000010490417, 0.7947999835014343, 0.5123999714851379, 0.6554999947547913, 0.23909999430179596, -0.364300012588501, 0.27880001068115234, 0.1784999966621399, -0.5889999866485596, -0.7857000231742859, -0.4205999970436096, 0.6478999853134155, 1.4575999975204468, 1.4563000202178955, 1.4108999967575073, 1.403499960899353, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279999494552612, 1.3279000520706177, 1.3278000354766846, 1.327299952507019, 1.3270000219345093, 1.3270000219345093, 1.3270000219345093, 1.2561999559402466, 0.8409000039100647, 0.8605999946594238, 1.1948000192642212, 0.04580000042915344, 0.10019999742507935, 0.10109999775886536, 0.5145000219345093, 0.439300000667572, -0.28029999136924744, 0.10379999876022339, 0.24809999763965607, 0.37119999527931213, 0.026100000366568565, -1.096500039100647, -0.17399999499320984, 0.5637000203132629, 0.36660000681877136, 0.559499979019165, -0.512499988079071, 1.0152000188827515, 1.0144000053405762, 1.013700008392334, 1.0134999752044678, 1.0132999420166016, 0.18369999527931213, 0.4415999948978424, 0.45239999890327454, 1.6259000301361084, 1.6234999895095825, 1.615399956703186, 1.5805000066757202, 1.5805000066757202, 1.579699993133545, 1.573799967765808, 1.5535000562667847, 1.5130000114440918, 1.4989999532699585, 1.493299961090088, 1.493299961090088, 1.493299961090088, 1.493299961090088, 1.493299961090088, 1.493299961090088, 1.493299961090088, 1.4931999444961548, 1.4919999837875366, 1.4907000064849854, 1.4905999898910522, 1.4904999732971191, 1.4874000549316406, 1.4874000549316406, 1.4802000522613525, 1.4630000591278076, 1.424399971961975, 1.2968000173568726, 1.2968000173568726, 1.2968000173568726, 1.1972999572753906, 1.111799955368042, 1.2010999917984009, 1.0750000476837158, 0.6977999806404114, 0.8450999855995178, 0.2793999910354614, 0.3248000144958496, -0.7709000110626221, 0.155799999833107, -0.3571000099182129, 0.8090000152587891, 0.8065999746322632, 0.5200999975204468, -0.23469999432563782, 0.9470000267028809, 0.18729999661445618, -0.2353000044822693, -0.31349998712539673, 0.7498999834060669, 0.8655999898910522, 0.8281999826431274, 0.8281000256538391, 0.8276000022888184, 0.8264999985694885, 0.8224999904632568, 0.8187999725341797, 0.8166000247001648, 0.8101000189781189, 0.7842000126838684, 0.7840999960899353, 0.7670999765396118, 0.7437000274658203, 0.7437000274658203, 0.7437000274658203, 0.742900013923645, 0.7423999905586243, 0.7401000261306763, 0.7369999885559082, 0.7324000000953674, 0.7276999950408936, 0.7272999882698059, 0.7272999882698059, 0.7272999882698059, 0.7149999737739563, 0.7145000100135803, 0.7052000164985657, 0.6714000105857849, 0.6714000105857849, 0.6714000105857849, 0.5616000294685364, 0.5942000150680542, 0.6226999759674072, 0.5914999842643738, 0.5895000100135803, 0.39239999651908875, 0.51910001039505, 0.2635999917984009, 0.4431999921798706, 0.24570000171661377, 0.3912999927997589, 0.5568000078201294, 0.6198999881744385, 0.6133000254631042, 0.33239999413490295, -0.11020000278949738, 0.12129999697208405, -0.1453000009059906, -0.22619999945163727, 0.05220000073313713]}, &ldquo;token.table&rdquo;: {&ldquo;Topic&rdquo;: [2, 2, 3, 3, 1, 4, 3, 4, 2, 1, 2, 3, 4, 3, 3, 1, 4, 1, 2, 3, 4, 1, 1, 2, 3, 4, 1, 4, 3, 4, 1, 4, 1, 3, 1, 1, 4, 2, 1, 3, 4, 1, 2, 4, 1, 2, 4, 4, 1, 1, 1, 3, 4, 2, 1, 1, 4, 1, 3, 2, 1, 3, 3, 4, 1, 1, 2, 4, 1, 2, 3, 4, 1, 4, 3, 2, 4, 1, 2, 3, 4, 3, 1, 2, 1, 2, 3, 4, 4, 1, 1, 4, 2, 3, 1, 2, 3, 4, 2, 1, 2, 4, 1, 3, 2, 4, 2, 1, 3, 4, 3, 3, 4, 2, 1, 1, 2, 4, 1, 2, 4, 2, 1, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 3, 1, 2, 3, 4, 3, 3, 4, 3, 4, 1, 2, 4, 2, 4, 1, 4, 1, 2, 4, 1, 2, 3, 4, 1, 1, 2, 3, 4, 2, 3, 3, 4, 2, 1, 2, 3, 4, 2, 4, 2, 3, 4, 3, 1, 1, 1, 3, 4, 1, 3, 2, 2, 4, 1, 4, 1, 3, 4, 2, 4, 3, 1, 3, 2, 1, 2, 1, 2, 4, 1, 1, 1, 4, 3, 1, 3, 4, 3, 4, 3, 4, 4, 2, 1, 2, 4, 2, 2, 2, 2, 3, 4, 1, 3, 3, 4, 1, 2, 3, 2, 4, 2, 4, 1, 2, 1, 2, 4, 1, 2, 3, 2, 1, 3, 4, 2, 4, 1, 2, 4, 2, 4, 1, 2, 3, 1, 2, 4, 3, 1, 2, 3, 4, 3, 4, 1, 4, 3, 4, 4, 3, 2, 3, 4, 2, 1, 2, 4, 3, 4, 2, 3, 1, 2, 4, 1, 3, 4], &ldquo;Freq&rdquo;: [0.4949880540370941, 0.49498799443244934, 0.5112787485122681, 0.5112785696983337, 0.9587746262550354, 0.6772841215133667, 0.5116578340530396, 0.6772844195365906, 0.494987815618515, 0.11436574161052704, 0.11436574161052704, 0.11436574161052704, 0.6861944198608398, 0.7729964256286621, 0.5115808844566345, 0.41265374422073364, 0.5502049922943115, 0.5522805452346802, 0.3681870102882385, 0.18409350514411926, 0.9564242959022522, 0.8613707423210144, 0.958774745464325, 0.14932507276535034, 0.447975218296051, 0.2986501455307007, 0.7075088024139404, 0.23583625257015228, 0.48553770780563354, 0.48553770780563354, 0.5647770166397095, 0.28238850831985474, 0.958774745464325, 0.7567007541656494, 0.9587773680686951, 0.08902547508478165, 0.8902547955513, 0.4949881136417389, 0.07164326310157776, 0.14328652620315552, 0.7880759239196777, 0.46815943717956543, 0.15605314075946808, 0.31210628151893616, 0.16814512014389038, 0.5044353604316711, 0.33629024028778076, 0.8068976402282715, 0.9587754011154175, 0.9587746262550354, 0.21972648799419403, 0.6591794490814209, 0.6757758855819702, 0.49498793482780457, 0.7224210500717163, 0.08900468051433563, 0.8900468349456787, 0.9587754011154175, 0.509765625, 0.49498799443244934, 0.49377405643463135, 0.24688702821731567, 0.7709893584251404, 0.9555293917655945, 0.9587743282318115, 0.1048586517572403, 0.1048586517572403, 0.7340105175971985, 0.16184958815574646, 0.06473983824253082, 0.0755298063158989, 0.6905582547187805, 0.149496927857399, 0.7474846243858337, 0.7729151248931885, 0.720396876335144, 0.360198438167572, 0.11881504207849503, 0.20792631804943085, 0.32674136757850647, 0.3564451336860657, 0.5116578340530396, 0.958774745464325, 0.4949653744697571, 0.09573622047901154, 0.2872086465358734, 0.19147244095802307, 0.38294488191604614, 0.9077461361885071, 0.86122727394104, 0.7184616327285767, 0.677282989025116, 0.4949885308742523, 0.5112035870552063, 0.1633581966161728, 0.10890546441078186, 0.21781092882156372, 0.4900745749473572, 0.49497807025909424, 0.41052737832069397, 0.41052737832069397, 0.20526368916034698, 0.15434898436069489, 0.7717449069023132, 0.15022747218608856, 0.7511373162269592, 0.7445824146270752, 0.44272953271865845, 0.14757651090621948, 0.44272953271865845, 0.5116578340530396, 0.35620343685150146, 0.5343051552772522, 0.49498841166496277, 0.9587748646736145, 0.30434128642082214, 0.30434128642082214, 0.30434128642082214, 0.05952119082212448, 0.23808476328849792, 0.7142542600631714, 0.49498793482780457, 0.9587746262550354, 0.6755348443984985, 0.1690099984407425, 0.20281198620796204, 0.03380199894309044, 0.5746339559555054, 0.15668974816799164, 0.3133794963359833, 0.15668974816799164, 0.4700692296028137, 0.2156546711921692, 0.1617410033941269, 0.1078273355960846, 0.5121798515319824, 0.2878069579601288, 0.23024557530879974, 0.1726841777563095, 0.2878069579601288, 0.23772066831588745, 0.8320223093032837, 0.1302434653043747, 0.2604869306087494, 0.1302434653043747, 0.3907303810119629, 0.5115747451782227, 0.5116546154022217, 0.8937855958938599, 0.5114852786064148, 0.806887686252594, 0.07818984985351562, 0.23456954956054688, 0.7037086486816406, 0.720288872718811, 0.3601444363594055, 0.8105045557022095, 0.20262613892555237, 0.0810353234410286, 0.2431059628725052, 0.6482825875282288, 0.7183934450149536, 0.4949880540370941, 0.9307759404182434, 0.9556477665901184, 0.955302357673645, 0.2657586336135864, 0.2657586336135864, 0.2657586336135864, 0.2657586336135864, 0.6023082733154297, 0.30115413665771484, 0.7547551393508911, 0.2515850365161896, 0.49498793482780457, 0.09632225334644318, 0.4334501326084137, 0.14448338747024536, 0.3371278941631317, 0.22810864448547363, 0.6843259334564209, 0.6575982570648193, 0.07306647300720215, 0.21919941902160645, 0.772996187210083, 0.958774983882904, 0.8612028956413269, 0.2401570826768875, 0.2401570826768875, 0.480314165353775, 0.8306674957275391, 0.20766687393188477, 0.494987815618515, 0.7202783226966858, 0.3601391613483429, 0.148703932762146, 0.8550476431846619, 0.4757806956768036, 0.1585935652256012, 0.3171871304512024, 0.8949180841445923, 0.6755743026733398, 0.5116579532623291, 0.7182102799415588, 0.5116578936576843, 0.494988352060318, 0.718269944190979, 0.4949878752231598, 0.4056314527988434, 0.4056314527988434, 0.4056314527988434, 0.958774745464325, 0.958775520324707, 0.9587745666503906, 0.907745897769928, 0.5116575360298157, 0.2947331964969635, 0.09824439883232117, 0.589466392993927, 0.3561237156391144, 0.5341855883598328, 0.5903236865997314, 0.2951618432998657, 0.6756694912910461, 0.49496468901634216, 0.9587754011154175, 0.8950091600418091, 0.9077457189559937, 0.4949880540370941, 0.49496784806251526, 0.4949882924556732, 0.1731678992509842, 0.1731678992509842, 0.6926715970039368, 0.8612027168273926, 0.5114811658859253, 0.7567006349563599, 0.6767446398735046, 0.7994885444641113, 0.14990410208702087, 0.04996803402900696, 0.7203260660171509, 0.36016303300857544, 0.4949882924556732, 0.6755340695381165, 0.95877605676651, 0.49498847126960754, 0.6383664608001709, 0.15959161520004272, 0.15959161520004272, 0.48589062690734863, 0.48589062690734863, 0.9312563538551331, 0.7447941899299622, 0.27617672085762024, 0.09205890446901321, 0.5523534417152405, 0.7202715277671814, 0.3601357638835907, 0.4860222637653351, 0.24301113188266754, 0.9683259725570679, 0.4949800968170166, 0.9555739164352417, 0.6680479645729065, 0.06680479645729065, 0.20041438937187195, 0.8611962199211121, 0.4949885308742523, 0.6786223649978638, 0.7567006349563599, 0.10014472901821136, 0.3004341721534729, 0.10014472901821136, 0.6008683443069458, 0.4844829738140106, 0.4844829738140106, 0.22640317678451538, 0.6792095303535461, 0.5116577744483948, 0.9555256962776184, 0.6755366921424866, 0.9300990104675293, 0.4949880540370941, 0.17046187818050385, 0.8523093461990356, 0.4949890971183777, 0.31770187616348267, 0.31770187616348267, 0.31770187616348267, 0.42792749404907227, 0.5705699920654297, 0.38166481256484985, 0.38166481256484985, 0.4754074513912201, 0.23770372569561005, 0.23770372569561005, 0.644784152507782, 0.1611960381269455, 0.1611960381269455], &ldquo;Term&rdquo;: [&quot;-citizens&rdquo;, &ldquo;-found&rdquo;, &ldquo;-secretary&rdquo;, &ldquo;1,000&rdquo;, &ldquo;13,979&rdquo;, &ldquo;15,000&rdquo;, &ldquo;26-year&rdquo;, &ldquo;3,000&rdquo;, &ldquo;60000&rdquo;, &ldquo;action&rdquo;, &ldquo;action&rdquo;, &ldquo;action&rdquo;, &ldquo;action&rdquo;, &ldquo;advisor&rdquo;, &ldquo;afraid&rdquo;, &ldquo;already&rdquo;, &ldquo;already&rdquo;, &ldquo;always&rdquo;, &ldquo;always&rdquo;, &ldquo;always&rdquo;, &ldquo;announce&rdquo;, &ldquo;anyone&rdquo;, &ldquo;approve&rdquo;, &ldquo;arrest&rdquo;, &ldquo;arrest&rdquo;, &ldquo;arrest&rdquo;, &ldquo;arrive&rdquo;, &ldquo;arrive&rdquo;, &ldquo;article&rdquo;, &ldquo;article&rdquo;, &ldquo;attack&rdquo;, &ldquo;attack&rdquo;, &ldquo;average&rdquo;, &ldquo;baianos&rdquo;, &ldquo;become&rdquo;, &ldquo;billion&rdquo;, &ldquo;billion&rdquo;, &ldquo;birthday&rdquo;, &ldquo;bolsonaro&rdquo;, &ldquo;bolsonaro&rdquo;, &ldquo;bolsonaro&rdquo;, &ldquo;brasilia&rdquo;, &ldquo;brasilia&rdquo;, &ldquo;brasilia&rdquo;, &ldquo;brazil&rdquo;, &ldquo;brazil&rdquo;, &ldquo;brazil&rdquo;, &ldquo;campaign&rdquo;, &ldquo;camuflagem&rdquo;, &ldquo;capital&rdquo;, &ldquo;case&rdquo;, &ldquo;case&rdquo;, &ldquo;check&rdquo;, &ldquo;child&rdquo;, &ldquo;collapse&rdquo;, &ldquo;combat&rdquo;, &ldquo;combat&rdquo;, &ldquo;coming&rdquo;, &ldquo;comparison&rdquo;, &ldquo;confrontation&rdquo;, &ldquo;congress&rdquo;, &ldquo;congress&rdquo;, &ldquo;consider&rdquo;, &ldquo;contract&rdquo;, &ldquo;control&rdquo;, &ldquo;corona&rdquo;, &ldquo;corona&rdquo;, &ldquo;corona&rdquo;, &ldquo;coronavirus&rdquo;, &ldquo;coronavirus&rdquo;, &ldquo;coronavirus&rdquo;, &ldquo;coronavirus&rdquo;, &ldquo;country&rdquo;, &ldquo;country&rdquo;, &ldquo;courage&rdquo;, &ldquo;covid&rdquo;, &ldquo;covid&rdquo;, &ldquo;covid-19&rdquo;, &ldquo;covid-19&rdquo;, &ldquo;covid-19&rdquo;, &ldquo;covid-19&rdquo;, &ldquo;covidan&rdquo;, &ldquo;criticize&rdquo;, &ldquo;dealer&rdquo;, &ldquo;death&rdquo;, &ldquo;death&rdquo;, &ldquo;death&rdquo;, &ldquo;death&rdquo;, &ldquo;decide&rdquo;, &ldquo;defend&rdquo;, &ldquo;defense&rdquo;, &ldquo;delivery&rdquo;, &ldquo;demand&rdquo;, &ldquo;demonstrate&rdquo;, &ldquo;demonstration&rdquo;, &ldquo;demonstration&rdquo;, &ldquo;demonstration&rdquo;, &ldquo;demonstration&rdquo;, &ldquo;destoa&rdquo;, &ldquo;distance&rdquo;, &ldquo;distance&rdquo;, &ldquo;distance&rdquo;, &ldquo;doctor&rdquo;, &ldquo;doctor&rdquo;, &ldquo;doria&rdquo;, &ldquo;doria&rdquo;, &ldquo;elderly&rdquo;, &ldquo;emergency&rdquo;, &ldquo;emergency&rdquo;, &ldquo;emergency&rdquo;, &ldquo;energy&rdquo;, &ldquo;epidemic&rdquo;, &ldquo;epidemic&rdquo;, &ldquo;everything&rdquo;, &ldquo;expenditure&rdquo;, &ldquo;federal&rdquo;, &ldquo;federal&rdquo;, &ldquo;federal&rdquo;, &ldquo;fight&rdquo;, &ldquo;fight&rdquo;, &ldquo;fight&rdquo;, &ldquo;flag&rdquo;, &ldquo;flexibility&rdquo;, &ldquo;globo&rdquo;, &ldquo;government&rdquo;, &ldquo;government&rdquo;, &ldquo;government&rdquo;, &ldquo;government&rdquo;, &ldquo;governor&rdquo;, &ldquo;governor&rdquo;, &ldquo;governor&rdquo;, &ldquo;governor&rdquo;, &ldquo;health&rdquo;, &ldquo;health&rdquo;, &ldquo;health&rdquo;, &ldquo;health&rdquo;, &ldquo;hospital&rdquo;, &ldquo;hospital&rdquo;, &ldquo;hospital&rdquo;, &ldquo;hospital&rdquo;, &ldquo;hydroxychloroquine&rdquo;, &ldquo;hydroxychloroquine&rdquo;, &ldquo;infect&rdquo;, &ldquo;infect&rdquo;, &ldquo;infect&rdquo;, &ldquo;infect&rdquo;, &ldquo;inflate&rdquo;, &ldquo;lastly&rdquo;, &ldquo;little&rdquo;, &ldquo;malaysia&rdquo;, &ldquo;march&rdquo;, &ldquo;measure&rdquo;, &ldquo;measure&rdquo;, &ldquo;measure&rdquo;, &ldquo;medical&rdquo;, &ldquo;medical&rdquo;, &ldquo;medium&rdquo;, &ldquo;medium&rdquo;, &ldquo;minister&rdquo;, &ldquo;minister&rdquo;, &ldquo;minister&rdquo;, &ldquo;money&rdquo;, &ldquo;natural&rdquo;, &ldquo;negative&rdquo;, &ldquo;nelson&rdquo;, &ldquo;network&rdquo;, &ldquo;never&rdquo;, &ldquo;never&rdquo;, &ldquo;never&rdquo;, &ldquo;never&rdquo;, &ldquo;number&rdquo;, &ldquo;number&rdquo;, &ldquo;office&rdquo;, &ldquo;office&rdquo;, &ldquo;overcrowd&rdquo;, &ldquo;pandemic&rdquo;, &ldquo;pandemic&rdquo;, &ldquo;pandemic&rdquo;, &ldquo;pandemic&rdquo;, &ldquo;paulo&rdquo;, &ldquo;paulo&rdquo;, &ldquo;people&rdquo;, &ldquo;people&rdquo;, &ldquo;people&rdquo;, &ldquo;phares&rdquo;, &ldquo;phone&rdquo;, &ldquo;pistol&rdquo;, &ldquo;place&rdquo;, &ldquo;place&rdquo;, &ldquo;place&rdquo;, &ldquo;positive&rdquo;, &ldquo;positive&rdquo;, &ldquo;preach&rdquo;, &ldquo;presence&rdquo;, &ldquo;presence&rdquo;, &ldquo;president&rdquo;, &ldquo;president&rdquo;, &ldquo;press&rdquo;, &ldquo;press&rdquo;, &ldquo;press&rdquo;, &ldquo;prevent&rdquo;, &ldquo;prevention&rdquo;, &ldquo;price&rdquo;, &ldquo;profile&rdquo;, &ldquo;protect&rdquo;, &ldquo;protection&rdquo;, &ldquo;provide&rdquo;, &ldquo;prudent&rdquo;, &ldquo;quarantine&rdquo;, &ldquo;quarantine&rdquo;, &ldquo;quarantine&rdquo;, &ldquo;question&rdquo;, &ldquo;recently&rdquo;, &ldquo;recife&rdquo;, &ldquo;record&rdquo;, &ldquo;relative&rdquo;, &ldquo;release&rdquo;, &ldquo;release&rdquo;, &ldquo;release&rdquo;, &ldquo;report&rdquo;, &ldquo;report&rdquo;, &ldquo;respirator&rdquo;, &ldquo;respirator&rdquo;, &ldquo;result&rdquo;, &ldquo;revenue&rdquo;, &ldquo;sauer&rdquo;, &ldquo;science&rdquo;, &ldquo;secret&rdquo;, &ldquo;security&rdquo;, &ldquo;seize&rdquo;, &ldquo;serious&rdquo;, &ldquo;share&rdquo;, &ldquo;share&rdquo;, &ldquo;share&rdquo;, &ldquo;shooting&rdquo;, &ldquo;since&rdquo;, &ldquo;singer&rdquo;, &ldquo;situation&rdquo;, &ldquo;social&rdquo;, &ldquo;social&rdquo;, &ldquo;social&rdquo;, &ldquo;speech&rdquo;, &ldquo;speech&rdquo;, &ldquo;spend&rdquo;, &ldquo;spoke&rdquo;, &ldquo;stadium&rdquo;, &ldquo;start&rdquo;, &ldquo;state&rdquo;, &ldquo;state&rdquo;, &ldquo;state&rdquo;, &ldquo;still&rdquo;, &ldquo;still&rdquo;, &ldquo;street&rdquo;, &ldquo;study&rdquo;, &ldquo;support&rdquo;, &ldquo;support&rdquo;, &ldquo;support&rdquo;, &ldquo;suspicion&rdquo;, &ldquo;suspicion&rdquo;, &ldquo;system&rdquo;, &ldquo;system&rdquo;, &ldquo;take&rdquo;, &ldquo;technology&rdquo;, &ldquo;teich&rdquo;, &ldquo;test&rdquo;, &ldquo;test&rdquo;, &ldquo;test&rdquo;, &ldquo;thing&rdquo;, &ldquo;think&rdquo;, &ldquo;thousand&rdquo;, &ldquo;timel&rdquo;, &ldquo;today&rdquo;, &ldquo;today&rdquo;, &ldquo;today&rdquo;, &ldquo;today&rdquo;, &ldquo;treatment&rdquo;, &ldquo;treatment&rdquo;, &ldquo;trump&rdquo;, &ldquo;trump&rdquo;, &ldquo;try&rdquo;, &ldquo;video&rdquo;, &ldquo;videoconference&rdquo;, &ldquo;vocid-19&rdquo;, &ldquo;want&rdquo;, &ldquo;watch&rdquo;, &ldquo;watch&rdquo;, &ldquo;website&rdquo;, &ldquo;without&rdquo;, &ldquo;without&rdquo;, &ldquo;without&rdquo;, &ldquo;witzel&rdquo;, &ldquo;witzel&rdquo;, &ldquo;works&rdquo;, &ldquo;works&rdquo;, &ldquo;world&rdquo;, &ldquo;world&rdquo;, &ldquo;world&rdquo;, &ldquo;would&rdquo;, &ldquo;would&rdquo;, &ldquo;would&rdquo;]}, &ldquo;R&rdquo;: 30, &ldquo;lambda.step&rdquo;: 0.01, &ldquo;plot.opts&rdquo;: {&ldquo;xlab&rdquo;: &ldquo;PC1&rdquo;, &ldquo;ylab&rdquo;: &ldquo;PC2&rdquo;}, &ldquo;topic.order&rdquo;: [1, 2, 3, 4]};</p>
+<p>function LDAvis_load_lib(url, callback){
+var s = document.createElement(&lsquo;script&rsquo;);
+s.src = url;
+s.async = true;
+s.onreadystatechange = s.onload = callback;
+s.onerror = function(){console.warn(&ldquo;failed to load library &quot; + url);};
+document.getElementsByTagName(&ldquo;head&rdquo;)[0].appendChild(s);
+}</p>
+<p>if(typeof(LDAvis) !== &ldquo;undefined&rdquo;){
+// already loaded: just create the visualization
+!function(LDAvis){
+new LDAvis(&quot;#&rdquo; + &ldquo;ldavis_el786423234483639764619859254&rdquo;, ldavis_el786423234483639764619859254_data);
+}(LDAvis);
+}else if(typeof define === &ldquo;function&rdquo; &amp;&amp; define.amd){
+// require.js is available: use it to load d3/LDAvis
+require.config({paths: {d3: &ldquo;<a href="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min%22%7D%7D);">https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min&quot;}});</a>
+require([&ldquo;d3&rdquo;], function(d3){
+window.d3 = d3;
+LDAvis_load_lib(&ldquo;<a href="https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.js%22,">https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.js&quot;,</a> function(){
+new LDAvis(&quot;#&rdquo; + &ldquo;ldavis_el786423234483639764619859254&rdquo;, ldavis_el786423234483639764619859254_data);
+});
+});
+}else{
+// require.js not available: dynamically load d3 &amp; LDAvis
+LDAvis_load_lib(&ldquo;<a href="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js%22,">https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js&quot;,</a> function(){
+LDAvis_load_lib(&ldquo;<a href="https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.js%22,">https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.js&quot;,</a> function(){
+new LDAvis(&quot;#&rdquo; + &ldquo;ldavis_el786423234483639764619859254&rdquo;, ldavis_el786423234483639764619859254_data);
+})
+});
+}
+</script></p>
+<h3 id="sentiment-analysis-1">Sentiment analysis</h3>
+<pre><code class="language-python">from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+analyser = SentimentIntensityAnalyzer()
+
+def sentiment_analyzer_scores(sentence):
+    score = analyser.polarity_scores(sentence)
+    score = score['compound']
+    return score
+</code></pre>
+<pre><code class="language-python">covid_subsample[&quot;Sentiment&quot;] = covid_subsample[&quot;Tweets_en&quot;].apply(sentiment_analyzer_scores)
+</code></pre>
+<pre><code>C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+</code></pre>
+<pre><code class="language-python">idx = pd.date_range('01-30-2020', '05-07-2020')
+covid_subsample.index = pd.DatetimeIndex(covid_subsample.Date)
+
+covid_subsample = covid_subsample.reindex(idx, fill_value=0)
+
+sent = pd.Series(data=covid_subsample['Sentiment'].values, index=covid_subsample['Date'])
+sent.plot(figsize=(16,4), label=&quot;Compound sentiment&quot;, legend=True,drawstyle=&quot;steps&quot;)
+</code></pre>
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1ed00363408&gt;
+</code></pre>
+<p><img src="output_36_1.png" alt="png"></p>
+<pre><code class="language-python">
+</code></pre>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/python/">Python</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/christian-roerig/avatar_hu6ee9268314d9fb0614cc386cd7c62acf_1834729_270x270_fill_q90_lanczos_center.jpg" alt="Christian Roerig">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Christian Roerig</a></h5>
+        <h6 class="card-subtitle">PhD candidate</h6>
+        <p class="card-text">My research interests include macroeconomics, development economics, applied econometrics and machine learning.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:cmr61@cam.ac.uk" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/christian-r%C3%B6rig-177a2a81/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ChristianRoerig" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+    <div class="project-related-pages content-widget-hr">
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+    </div>
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academic.min.6f7ce8be710290b8c431bbc97f405d15.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © 2020
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
