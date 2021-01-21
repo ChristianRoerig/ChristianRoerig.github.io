@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Firm Dynamics | Christian Roerig</title>
+    <link>/tag/firm-dynamics/</link>
+      <atom:link href="/tag/firm-dynamics/index.xml" rel="self" type="application/rss+xml" />
+    <description>Firm Dynamics</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>Firm Dynamics</title>
+      <link>/tag/firm-dynamics/</link>
+    </image>
+    
+    <item>
+      <title>Financial factors, firm size, and potential</title>
+      <link>/publication/firm_potential/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/firm_potential/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>The Birth of a Multinational: Innovation and Foreign Acquisitions
+</title>
+      <link>/publication/bbmnc/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/bbmnc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Optimal Stochastic Control</title>
+      <link>/code_project/optimal_stochastic_control/</link>
+      <pubDate>Wed, 20 May 2020 00:00:00 +0000</pubDate>
+      <guid>/code_project/optimal_stochastic_control/</guid>
+      <description>
+
+
+&lt;div id=&#34;stochastic-solution&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Stochastic solution&lt;/h1&gt;
+&lt;p&gt;This markdown is based on work for the paper “The Birth of a Multinational: Innovation and Foreign Acquisitions” with Jim Goldman, Maria Guadalupe and Veronica Rapppoport. The problem is to find the optimal timing and amount of investment into a new technology, as well as when to become a multinational, i.e. enter a new market facing higher demand. Expertise which forms together with technology the level of productivity is stochastic in this setting following a Brownian motion. This problem is a combination of a optimal stochastic impulse control problem (when and how much to invest) and an optimal switching problem (when to enter the new market). For those problems a closed-form solution usually doesn’t exist. Hence, I thought it might be of general interest to show how to tackle such a problem numerically.&lt;/p&gt;
+&lt;div id=&#34;method&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method&lt;/h2&gt;
+&lt;p&gt;The numerical solution method follows the outline of the “Forward simulation and backward updating” (FSBU) algorithm described in “A Backward Simulation Method for Stochastic Optimal Control Problems” by Shen &amp;amp; Weng (2019).&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Initiation:&lt;/p&gt;
+&lt;p&gt;Set &lt;span class=&#34;math inline&#34;&gt;\(V_{d,T}(a,h) = \pi_{M,T}(a,h)\)&lt;/span&gt;. Meaning that after some finite time T every domestic firm is eventually a multinational firm. So we have to back out, how the firm got there optimally. Given that the value is time-dependent, so will the policy functions (likely to converge to some constant decision rule after some time). For &lt;span class=&#34;math inline&#34;&gt;\(t= T-1, T-2,...\)&lt;/span&gt; do the following two steps:&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Forward Simulation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Control randomization: Generate random samples (N: amount of Monte Carlo simulations) of actions (invest &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; (arbitrary), open foreign affiliation &lt;span class=&#34;math inline&#34;&gt;\(f\)&lt;/span&gt; (once for &lt;span class=&#34;math inline&#34;&gt;\(t \in[1,T]\)&lt;/span&gt;)) up to time t:
+&lt;span class=&#34;math display&#34;&gt;\[a^n_{1:t} = (a_1^n,...,a_t^n), n=1,2,...,N, \]&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[ f^n_{1:t} = (f_1^n,...,f_t^n), n=1,2,...,N, \]&lt;/span&gt;
+with &lt;span class=&#34;math inline&#34;&gt;\(\sum_{i=1}^{t}f_i^n=1\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(f_i \in (0,1)\)&lt;/span&gt; for all &lt;span class=&#34;math inline&#34;&gt;\(n = 1,2,...,N\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Simulation of state process: Simulate random innovations to the process of experience:
+&lt;span class=&#34;math display&#34;&gt;\[\epsilon^n_{1:t} = (\epsilon_1^n,...,\epsilon_t^n), n=1,2,...,N,\]&lt;/span&gt;
+This gives us a sample of the state process
+&lt;span class=&#34;math display&#34;&gt;\[X^n_{1:t} = (X_1^n,...,X_t^n), n=1,2,...,N,\]&lt;/span&gt;
+where each state &lt;span class=&#34;math inline&#34;&gt;\(X^n_{t}\)&lt;/span&gt; is a function of its prior state, any action/inaction and innovations to experience: &lt;span class=&#34;math inline&#34;&gt;\(X^n_{t}= s(X^n_{t-1},a^n_{t-1},f^n_{t-1},\epsilon_t^n)\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Backward Updating:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Non-parametric regression: Now using the simulated states construct value as dependent variable by just assigning the reward (profit) function to the state:
+&lt;span class=&#34;math display&#34;&gt;\[Y^n_{t+1} = V_{t+1}(X_{t+1}^n), n=1,2,...,N.\]&lt;/span&gt;
+Further, as independent variable, construct sample of post-action state value (function K captures loss in experience, increase in a)
+&lt;span class=&#34;math display&#34;&gt;\[ X^n_{t+} = K(X_{t}^n,a_t^n,f_t^n), n=1,2,...,N.\]&lt;/span&gt;
+Now regressing &lt;span class=&#34;math inline&#34;&gt;\(Y^n_{t+1}\)&lt;/span&gt; on &lt;span class=&#34;math inline&#34;&gt;\(X^n_{t+}\)&lt;/span&gt; non-parametrically gives us an estimate of the continuation value &lt;span class=&#34;math inline&#34;&gt;\(C_t\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;Optimization: Finally, in order to find the optimal policy functions (i.e. when and how much to invest and when to enter) we optimize the following problem recursively for all t (hence, time dependent policies).
+&lt;span class=&#34;math display&#34;&gt;\[V_t(a,h) = \sup_{a&amp;#39;,f}[\pi_t(X_t,a&amp;#39;,f)+\beta C_t(K(X_{t},a&amp;#39;,f))]\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;set-parameters-of-model&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Set parameters of model&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;M_d = 1      # domestic revenue stream
+M_m = 1.25   # revenue stream multinational
+p_a = 0.2    # cost for innovating
+F_M = 2      # cost for opening foreign affiliation
+r = 0.02     # two percent risk free rate per period
+kappa = 0.1  # drop in experience due to new technology
+mu = 0.015   # learning rate
+sigma = 0.1  # standard deviation of brownian motion
+
+a0 = 0       # initial technology level
+h0 = 0.5     # initial experience level&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;set-parameters-for-simulation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Set parameters for simulation&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;N = 1000 # number of Monte Carlo simulations 
+T = 10 # points in time
+B = 0 # burn in periods&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;initialize-objects-to-save-simulations&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Initialize objects to save simulations&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# actions
+investment = matrix(0,N,T+B)
+entry = matrix(0,N,T+B)
+
+# value of firm
+value = matrix(0,N,T+B)
+# states
+state_space = array(0,dim=c(3,N,T+B))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;forward-simulation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Forward Simulation&lt;/h2&gt;
+&lt;p&gt;The following block implements the forward Monte carlo Simulation for N firms. First, we draw random investment and entry strategies for each firm at each point in time. While a firm can invest at any point in time, any amount, it can only once open a foreign affiliation and become a multinational.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Control randomization
+for (i in 1:N){
+  set.seed(i*123)
+  # here investment replaces old technology level if higher
+  investment[i,] = pmax(0,rnorm(T+B, mean = 0, sd = 2))
+  set.seed(i*1234)
+  entry[i,sample(1:(T+B),1)] = 1 # maybe use heuristik, so less Monte Carlo simulations are needed, e.g. entry if ((T-t)*productivity*(M_m-M_d)&amp;gt;F_M)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, based on our control randomization, we calculate the resulting states starting with out initial values for the technology level and expertise. The states evolve according to the actions each firm takes and the stochastic learning process for expertise. The state_space is an object which saves the value of each state (technology level, expertise and domestic/multinational dummy) for each firm at each point in time.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate state process based on actions and shocks. 
+#States: a, h, shock (forming productivity), foreign_dummy
+set.seed(2)
+state_space[1,,1] = pmax(0,rnorm(N, mean = 0.5, sd = 1)) # initial technology level for all simulations 
+set.seed(3)
+state_space[2,,1] = pmax(0,rnorm(N, mean = 0.5, sd = 1)) # initial experience level for all simulations
+#Note! if we want to start from an initial distribution 
+#we might need to &amp;quot;burn&amp;quot; some simulations at the start
+state_space[3,,1] = 0  # initially domestic firm
+
+# initialize object to save simulations of sde
+sde = array(0,dim=c(N))
+drift = expression(mu * x)
+diffusion = expression(sqrt(2) * sigma * x)
+
+for (t in 2:(T+B)){
+  state_space[1,,t] = state_space[1,,t-1] + investment[,t-1]
+  # for experience we need to account for stochastic drift
+  for (n in 1:N){
+  #set.seed(n*12345)
+    if (investment[n,t-1]&amp;gt;0){
+      x0 = state_space[2,n,t-1] * (1-kappa)
+    }
+    else {
+      x0 = state_space[2,n,t-1]
+    }
+  aux = snssde1d(N=2,drift = drift, diffusion = diffusion, x0 = x0,M=1, type=&amp;quot;ito&amp;quot;,Dt=1)
+  sde[n] = aux$X[2]
+  # use heuristik to determine entry
+  #if((T-t)*(state_space[2,n,t-1]*state_space[1,n,t-1])^0.5*(M_m-M_d)&amp;gt;(F_M/2) &amp;amp; state_space[3,n,t-1]==0){
+  #  entry[n,t-1] = 1
+  #}
+  #else{
+  #  entry[n,t-1] = 0
+  #}
+  }
+  
+  state_space[2,,t] = sde
+  state_space[3,,t] = state_space[3,,t-1] + entry[,t-1] 
+}
+
+# Delete burn in periods
+if (B&amp;gt;0){
+state_space_b = state_space[,,(B+1):(T+B)]
+state_space_b[1,,] = state_space_b[1,,]/quantile(state_space_b[1,,1],0.99)
+state_space_b[2,,] = state_space_b[2,,]/quantile(state_space_b[2,,1],0.99)
+state_space = NULL
+state_space = state_space_b
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we have simulated the state space, we can calculate the reward (here the revenue) for each firm and get the (idiosyncratic) value function for each point in time recursively. This is what we want to maximize later, taking the cost of each action into account.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# reward function = revenue (cost trade-off in optimization)
+revenue_function = function(state_space){
+  a = state_space[1,,]
+  h = state_space[2,,]
+  f = state_space[3,,]
+  revenue = (1-f) * a^0.5 * h^0.5 * M_d + f * a^0.5 * h^0.5 * M_m #- as.numeric(investment&amp;gt;0)*(investment+a)*p_a - entry*F_M
+  return(revenue)
+}
+revenue = revenue_function (state_space)
+
+# calculate net present value of revenue over time
+revenue_value_function = function(revenue){
+  value_t = array(0,dim=dim(revenue))
+  value_t[,ncol(revenue)] = revenue[,ncol(revenue)]
+  for (t in (ncol(revenue)-1):1){
+  value_t[,t] = revenue[,t] + exp(-r)*value_t[,t+1]
+  }
+  return(value_t)
+}
+
+value_revenue = revenue_value_function(revenue)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally we plot some simulated paths of the state space and the corresponding revenue.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot some simulated paths
+n=1000
+par(mfrow=c(2,2),mar=c(4,4,1,1))
+exp_p = ts(t(state_space[2,1:n,]))
+ts.plot(exp_p,ylab = &amp;quot;Experience&amp;quot;,gpars= list(col=plasma(n)))
+
+inv_p = ts(t(state_space[1,1:n,]))
+ts.plot(inv_p,ylab = &amp;quot;Investment&amp;quot;,gpars= list(col=plasma(n)))
+
+entry_p = ts(t(state_space[3,1:n,]))
+ts.plot(entry_p,ylab = &amp;quot;Foreign affiliation&amp;quot;,gpars= list(col=plasma(n)))
+
+revenue_p = ts(t(revenue[1:n,]))
+ts.plot(revenue_p,ylab = &amp;quot;Revenue&amp;quot;,gpars= list(col=plasma(n)))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/code_project/Optimal_stochastic_control/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;backward-updating-and-optimization&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Backward Updating and Optimization&lt;/h2&gt;
+&lt;p&gt;Up to this point we have simulated many potential paths for firms’ values depending on randomized actions. From that simulated data we aim to back out the optimal actions at any given state for each point in time. This will be done by backward updating which gives us an estimate of the continuation value and optimization, which chooses those actions maximizing the continuation value. This procedure is done in two steps: In a first step we non-parametrically regress (here using Gradient Boosting as this is extremely fast) the simulated (path-specific!) values on the simulated post-action states to get a mapping from post-action state to continuation value. The mapping from state to post-action state is deterministic and depends on the respective actions. Using those two mappings, one deterministic and the other one estimated, we can run an optimization scheme choosing those actions, which lead us to the corresponding post-action state which in turn gives us the highest continuation value in expecttation in the next period. We do this for any given “pre-action” state. The whole procedure is done backwards, for each point in time.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# get post action state values - states as vectors for non-parametric estimation
+post_action_vector = function(current_state,investment,entry){
+  post_action = array(0,dim=c(3,N))
+  a = current_state[1,]
+  h = current_state[2,]
+  f = current_state[3,]
+  post_action[1,] = a + investment 
+  post_action[2,] = h * (1-as.numeric(investment&amp;gt;0)) + h * (1-kappa) * as.numeric(investment&amp;gt;0)
+  post_action[3,] = f + entry
+  return(post_action)
+}
+
+# get post action state values - states as scalars for optimization
+post_action = function(a,h,f,investment,entry){
+  post_action = array(0,dim=c(3))
+  post_action[1] = a + investment 
+  post_action[2] = h * (1-as.numeric(investment&amp;gt;0)) + h * (1-kappa) * as.numeric(investment&amp;gt;0)
+  post_action[3] = f + entry
+  return(post_action) 
+}
+
+
+# value_function (continuous optim)
+value_function_cont = function(a,h,f,o,x, model = model.np){
+  post = post_action(a,h,f,x,o)
+  sim_data = NULL
+  sim_data$inv = post[1]
+  sim_data$exp = post[2]
+  sim_data$foreign = post[3]
+  value = (1-f) * a^0.5 * h^0.5 * M_d + f * a^0.5 * h^0.5 * M_m - as.numeric(x[1]&amp;gt;0)*(a+x[1])*p_a - (o&amp;gt;0)*F_M + exp(-r)*predict(model,as_tibble(sim_data))$predictions
+  return(-value)
+}
+
+
+# initialize object to save optimal choices per time, per tech level, per experience and per action (invest, open fa)
+optim_choices_df = NULL
+# initialize value function (last period simply equal to revenue, as any action would violate optimality)
+value_function_opt = value_revenue
+
+for (t in T:2){
+  print(paste(&amp;quot;Now optimizing time: &amp;quot;,t,sep=&amp;quot;&amp;quot;))
+
+# Calculate numerical estimate of value function for all states at time t
+if (t &amp;lt; T){
+# ! map random state (post-action and shock) to value, then regress on post_action
+states_data = NULL
+states_data$inv = state_space[1,,t]
+states_data$exp = state_space[2,,t]
+states_data$foreign = state_space[3,,t]
+states_data = as_tibble(states_data) 
+value_function_opt[,t] = predict(value_function_optim,newdata = states_data,se.fit=FALSE)
+#value_function_opt[,t] = predict(value_function_optim_gbm,as_tibble(states_data),n.trees=min_MSE_value)
+}
+
+# Non-parametric estimation of continuation value using numerical estimate of value function of the next period.
+K = post_action_vector(state_space[,,t-1],investment[,t-1],entry[,t-1])
+# collect variables into data frame
+sim_data = NULL
+sim_data$inv = K[1,]
+sim_data$exp = K[2,]
+sim_data$foreign = K[3,]
+sim_data$rev = value_function_opt[,t] # ! calculate numerical estimate of value function backwards
+sim_data = as_tibble(sim_data)
+sim_data = sim_data %&amp;gt;% filter(inv &amp;lt;= quantile(inv,0.99), exp &amp;lt;= quantile(exp,0.99))
+
+# Gradient Boosting
+set.seed(1)
+#gbm &amp;lt;- gbm(rev ~.,data = sim_data, dist = &amp;quot;gaussian&amp;quot;,interact=3,n.trees=1000,cv.folds=5,bag.fraction=1)
+#plotres(gbm)
+#min_MSE &amp;lt;- which.min(gbm$cv.error)
+#plotmo::plotmo(gbm, pmethod=&amp;quot;partdep&amp;quot;)
+rf &amp;lt;-  ranger(rev ~ ., data = sim_data)
+#pdp::partial(rf,pred.var=&amp;quot;inv&amp;quot;,plot=TRUE)
+#pdp::partial(rf,pred.var=&amp;quot;entry&amp;quot;,plot=TRUE)
+
+for (a in seq(min(state_space[1,,t-1]),quantile(state_space[1,,t-1],0.99), length.out = 5)){
+  for(h in seq(min(state_space[2,,t-1]),quantile(state_space[2,,t-1],0.99), length.out = 5)){
+    for(f in c(0,1)){
+    
+    # save optimal choices of investment and opening foreign affiliation
+    optim_choice = array(NA,dim=c(1,2))
+    
+    # continuous optimization - fix: discrete case of opening foreign affiliation
+      optimum = optim(par = c(0), fn = value_function_cont, lower=c(0), upper=c(100), method = &amp;quot;Brent&amp;quot;, a=a, h=h, f=f, o=0, model = rf)
+      optim_choice = c(optimum$par,0)
+      optim_value = -optimum$value
+      # specifically check investment = 0, doesn&amp;#39;t seem to find corner solution
+      if (- value_function_cont(a,h,f,0,0,model=rf) &amp;gt; optim_value){
+        optim_choice = c(0,0)
+        optim_value = -value_function_cont(a,h,f,0,0,model=rf)
+      }
+      #optimum = optim(par = c(0), fn = value_function_cont, lower=c(0), upper=c(100), method = &amp;quot;Brent&amp;quot;, a=a, h=h, f=f, o=1, model = rf)
+      #if (-optimum$value &amp;gt; optim_value){
+      #  optim_choice = c(optimum$par,1)
+      #  optim_value = -optimum$value
+      #}
+      # specifically check investment = 0, doesn&amp;#39;t seem to find corner solution
+      if (-value_function_cont(a,h,f,1,0,model=rf) &amp;gt; optim_value){
+        optim_choice = c(0,1)
+        optim_value = -value_function_cont(a,h,f,1,0,model=rf)
+      }
+      
+    aux = NULL
+    aux$time = t-1 # save period
+    aux$inv = a    # state of technology level
+    aux$exp = h    # state of experience
+    aux$foreign = f # state of domestic/multinational
+    aux$invest = optim_choice[1] # optimal investment
+    aux$open = optim_choice[2]   # optimal entry
+    aux$value = optim_value      # optimal value
+    optim_choices_df = rbind(optim_choices_df,aux)
+    }
+  }
+}
+optim_choices_df = as_tibble(optim_choices_df)
+optim_choices_df = unnest(optim_choices_df,cols = c(time, inv, exp, foreign, invest, open, value) )
+
+if (t&amp;gt;2){
+# map optimal value to states
+test_data = optim_choices_df %&amp;gt;% filter(time == t-1)
+npseed(42)
+value_function_optim &amp;lt;- npreg(value ~ inv + exp + foreign,data = test_data)
+#value_function_optim_gbm &amp;lt;- gbm(value ~ inv + exp + foreign,data = test_data,dist = &amp;quot;gaussian&amp;quot;,interact=3,n.trees=1000,cv.folds=5)
+#min_MSE_value &amp;lt;- which.min(value_function_optim_gbm$cv.error)
+#plot(value_function_optim)
+#plotmo::plotmo(value_function_optim_gbm, pmethod=&amp;quot;partdep&amp;quot;)
+}
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Now optimizing time: 10&amp;quot;
+## [1] &amp;quot;Now optimizing time: 9&amp;quot;
+## [1] &amp;quot;Now optimizing time: 8&amp;quot;
+## [1] &amp;quot;Now optimizing time: 7&amp;quot;
+## [1] &amp;quot;Now optimizing time: 6&amp;quot;
+## [1] &amp;quot;Now optimizing time: 5&amp;quot;
+## [1] &amp;quot;Now optimizing time: 4&amp;quot;
+## [1] &amp;quot;Now optimizing time: 3&amp;quot;
+## [1] &amp;quot;Now optimizing time: 2&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plot-results---per-point-in-time&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plot results - per point in time&lt;/h2&gt;
+&lt;p&gt;Plots follow the paper “Deep neural networks algorithms for stochastic control
+problems on finite horizon: numerical applications” by Bachouch et al. (2020).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;optim_choices_df %&amp;gt;% filter(foreign==0) %&amp;gt;% 
+  ggplot() + 
+  geom_raster(aes(x=inv,y=exp,fill=invest)) + 
+  ylab(&amp;quot;Expertise&amp;quot;)+
+  xlab(&amp;quot;Technology level&amp;quot;)+
+  #scale_fill_manual(values=c(&amp;quot;snow2&amp;quot;,&amp;quot;yellow&amp;quot;), na.value=&amp;quot;black&amp;quot;, name=&amp;quot;Investment&amp;quot;) +
+  scale_fill_gradient2(low=&amp;quot;snow2&amp;quot;, high=&amp;quot;yellow&amp;quot;, na.value=&amp;quot;black&amp;quot;, name=&amp;quot;Investment&amp;quot;) +
+  geom_point(aes(x=inv,y=exp,size=ifelse(open, &amp;quot;enter&amp;quot;, &amp;quot;wait&amp;quot;),color=ifelse(open, &amp;quot;enter&amp;quot;, &amp;quot;wait&amp;quot;)),stroke = 0) +
+  scale_size_manual(values=c(enter=1.5, wait=0), name=&amp;quot;Become multinational&amp;quot;) +
+  scale_color_manual(values=c(enter=&amp;quot;forestgreen&amp;quot;, wait=&amp;quot;darkgray&amp;quot;),name=&amp;quot;Become multinational&amp;quot;)+
+  facet_wrap(~time,scales=&amp;quot;free&amp;quot;,labeller = label_both)+
+  scale_y_continuous(labels = scales::number_format(accuracy = 0.1))+
+  scale_x_continuous(labels = scales::number_format(accuracy = 0.1))+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &amp;quot;black&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Raster pixels are placed at uneven horizontal intervals and will be
+## shifted. Consider using geom_tile() instead.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Raster pixels are placed at uneven vertical intervals and will be
+## shifted. Consider using geom_tile() instead.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/code_project/Optimal_stochastic_control/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;
+The results suggest that firms invest more, the higher their experience level relative to their technology level. They refrain from investing as long as their technology level is high relative to their experience. Furthermore, a firm becomes a multinational as soon as its productivity is high enough, i.e. for high values of technology level and experience.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optimal-vs.-random-strategy&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Optimal vs. random strategy&lt;/h2&gt;
+&lt;p&gt;Plot paths for firms with same stochastic shocks but one is behaving optimally, while the other one is behaving randomly.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;optim_firm_df = NULL
+random_firm_df = NULL
+optim_choices_df = round(optim_choices_df,2)
+# first firm is behaving randomly
+set.seed(12)
+random_firm_df$investment = pmax(0,runif(T, min = -2, max = 2))
+random_firm_df$entry = 0
+random_firm_df = as_tibble(random_firm_df)
+random_firm_df$entry[sample(1:T,1)] = 1
+random_firm_df$tech_level = 0
+random_firm_df$foreign = 0
+random_firm_df$exp = 0.5
+random_firm_df$profit = 0
+random_firm_df$time = 1
+random_firm_df$shock = 0
+
+# calculate profit for random firm
+random_firm_df$profit[1] = (1-random_firm_df$foreign[1])*random_firm_df$tech_level[1]^0.5*random_firm_df$exp[1]^0.5 * M_d + (random_firm_df$foreign[1])*random_firm_df$tech_level[1]^0.5*random_firm_df$exp[1]^0.5 * M_m - (random_firm_df$tech_level[1]+random_firm_df$investment[1])*p_a*as.numeric(random_firm_df$investment[1]&amp;gt;0) - random_firm_df$entry[1] *F_M
+
+for (t in 2:T){
+  random_firm_df$time[t] = t
+  random_firm_df$tech_level[t] = random_firm_df$tech_level[t-1] + random_firm_df$investment[t-1]
+  set.seed(t*1234)
+  if (random_firm_df$investment[t-1]&amp;gt;0){
+      x0 = random_firm_df$exp[t-1] * (1-kappa)
+    }
+    else {
+      x0 = random_firm_df$exp[t-1]
+    }
+  aux = snssde1d(N=2,drift = drift, diffusion = diffusion, x0 = x0,M=1, type=&amp;quot;ito&amp;quot;,Dt=1)
+  random_firm_df$exp[t] = aux$X[2]
+  random_firm_df$shock[t] = aux$X[2]/aux$X[1]
+  random_firm_df$foreign[t] = random_firm_df$foreign[t-1] + random_firm_df$entry[t-1]
+  random_firm_df$profit[t] = (1-random_firm_df$foreign[t])*random_firm_df$tech_level[t]^0.5*random_firm_df$exp[t]^0.5 * M_d +(random_firm_df$foreign[t])*random_firm_df$tech_level[t]^0.5*random_firm_df$exp[t]^0.5 * M_m - (random_firm_df$tech_level[t]+random_firm_df$investment[t])*p_a*as.numeric(random_firm_df$investment[t]&amp;gt;0) - random_firm_df$entry[t] *F_M
+}
+
+
+
+# second firm is behaving optimally (optimal choices those with smallest distance to state values)
+dist &amp;lt;- function(a, h, f, t, optim_choices_df. = optim_choices_df){
+          dt &amp;lt;- data.table(sqrt((optim_choices_df[[&amp;quot;inv&amp;quot;]]-a)^2 + (optim_choices_df[[&amp;quot;exp&amp;quot;]]-h)^2 + (optim_choices_df[[&amp;quot;foreign&amp;quot;]]-f)^2+(optim_choices_df[[&amp;quot;time&amp;quot;]]-t)^2))
+          return(data.table(Closest.V1  = which.min(dt$V1)))
+}
+
+
+optim_firm_df$investment = array(0,dim=c(10,1))
+optim_firm_df$entry = 0
+optim_firm_df = as_tibble(optim_firm_df)
+optim_firm_df$tech_level = 0
+optim_firm_df$foreign = 0
+optim_firm_df$exp = 0.5
+optim_firm_df$profit = 0
+optim_firm_df$time = 1
+optim_firm_df$shock = 0
+
+for (t in 1:(T-1)){
+  optim_firm_df$time[t] = t
+  # get optimal actions based on state
+  optim &amp;lt;- dist(optim_firm_df$tech_level[t],optim_firm_df$exp[t],optim_firm_df$foreign[t],t)
+  optim_firm_df$investment[t] &amp;lt;- optim_choices_df$invest[optim$Closest.V1]
+  optim_firm_df$entry[t] &amp;lt;- optim_choices_df$open[optim$Closest.V1]
+  
+  optim_firm_df$tech_level[t+1] = optim_firm_df$tech_level[t] + optim_firm_df$investment[t]
+  set.seed((t+1)*1234)
+  if (optim_firm_df$investment[t]&amp;gt;0){
+      x0 = optim_firm_df$exp[t] * (1-kappa)
+    }
+    else {
+      x0 = optim_firm_df$exp[t]
+    }
+  aux = snssde1d(N=2,drift = drift, diffusion = diffusion, x0 = x0,M=1, type=&amp;quot;ito&amp;quot;,Dt=1)
+  optim_firm_df$exp[t+1] = aux$X[2]
+  optim_firm_df$shock[t+1] = aux$X[2]/aux$X[1]
+  optim_firm_df$foreign[t+1] = optim_firm_df$foreign[t] + optim_firm_df$entry[t]
+  optim_firm_df$profit[t] = (1-optim_firm_df$foreign[t])*optim_firm_df$tech_level[t]^0.5*optim_firm_df$exp[t]^0.5 * M_d +(optim_firm_df$foreign[t])*optim_firm_df$tech_level[t]^0.5*optim_firm_df$exp[t]^0.5 * M_m - (optim_firm_df$tech_level[t]+optim_firm_df$investment[t])*p_a*as.numeric(optim_firm_df$investment[t]&amp;gt;0) - optim_firm_df$entry[t] *F_M
+  
+
+}
+  optim_firm_df$time[T] = T
+  optim_firm_df$profit[T] = (1-optim_firm_df$foreign[T])*optim_firm_df$tech_level[T]^0.5*optim_firm_df$exp[T]^0.5 * M_d + (optim_firm_df$foreign[T])*optim_firm_df$tech_level[T]^0.5*optim_firm_df$exp[T]^0.5 * M_m
+  
+  
+# plot policies
+random_firm_df$cumulated_profit = random_firm_df$profit  
+optim_firm_df$cumulated_profit = optim_firm_df$profit   
+for (t in 2:T){
+random_firm_df$cumulated_profit[t] = random_firm_df$cumulated_profit[t-1]+random_firm_df$profit[t]  
+optim_firm_df$cumulated_profit[t] = optim_firm_df$cumulated_profit[t-1]+optim_firm_df$profit[t]   
+}
+
+random_firm_df$strategy &amp;lt;- &amp;#39;random&amp;#39;
+optim_firm_df$strategy &amp;lt;- &amp;#39;optimal&amp;#39;
+data &amp;lt;- rbind.data.frame(random_firm_df, optim_firm_df)
+
+p1 = ggplot()+ 
+  geom_step(data=data, aes(x=time,y=investment,colour=strategy),size=0.75,linetype=&amp;quot;longdash&amp;quot;)+
+  ylab(&amp;quot;Investment&amp;quot;)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &amp;quot;black&amp;quot;))+
+  #scale_color_viridis(discrete = TRUE,option = &amp;quot;D&amp;quot;)
+  scale_colour_manual(values = c(&amp;#39;optimal&amp;#39; = &amp;quot;#0D0887FF&amp;quot;,
+                                   &amp;#39;random&amp;#39; = &amp;#39;#CC4678FF&amp;#39;))
+  
+
+p2 = ggplot()+ 
+  geom_step(data=data, aes(x=time,y=foreign,colour=strategy),size=0.75,linetype=&amp;quot;longdash&amp;quot;)+
+  ylab(&amp;quot;Entry&amp;quot;)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &amp;quot;black&amp;quot;))+
+  #scale_color_viridis(discrete = TRUE,option = &amp;quot;D&amp;quot;)
+  scale_colour_manual(values = c(&amp;#39;optimal&amp;#39; = &amp;quot;#0D0887FF&amp;quot;,
+                                   &amp;#39;random&amp;#39; = &amp;#39;#CC4678FF&amp;#39;))
+
+p3 = ggplot()+ 
+  geom_line(data=data, aes(x=time,y=tech_level,colour=strategy),size=0.75)+
+  ylab(&amp;quot;Technology level&amp;quot;)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &amp;quot;black&amp;quot;))+
+  #scale_color_viridis(discrete = TRUE,option = &amp;quot;D&amp;quot;)
+  scale_colour_manual(values = c(&amp;#39;optimal&amp;#39; = &amp;quot;#0D0887FF&amp;quot;,
+                                   &amp;#39;random&amp;#39; = &amp;#39;#CC4678FF&amp;#39;))
+
+p4 = ggplot()+ 
+  geom_line(data=data, aes(x=time,y=exp,colour=strategy),size=0.75)+
+  ylab(&amp;quot;Expertise&amp;quot;)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &amp;quot;black&amp;quot;))+
+  #scale_color_viridis(discrete = TRUE,option = &amp;quot;D&amp;quot;)
+  scale_colour_manual(values = c(&amp;#39;optimal&amp;#39; = &amp;quot;#0D0887FF&amp;quot;,
+                                   &amp;#39;random&amp;#39; = &amp;#39;#CC4678FF&amp;#39;))
+
+p5 = ggplot()+ 
+  geom_line(data=data, aes(x=time,y=cumulated_profit,colour=strategy),size=0.75)+
+  ylab(&amp;quot;Cumulated profit&amp;quot;)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = &amp;quot;black&amp;quot;))+
+  #scale_color_viridis(discrete = TRUE,option = &amp;quot;D&amp;quot;)
+  scale_colour_manual(values = c(&amp;#39;optimal&amp;#39; = &amp;quot;#0D0887FF&amp;quot;,
+                                   &amp;#39;random&amp;#39; = &amp;#39;#CC4678FF&amp;#39;), name=&amp;quot;Strategy&amp;quot;)+
+  theme(legend.key = element_rect(colour = NA, fill = NA))
+
+figure &amp;lt;- ggpubr::ggarrange(ggpubr::ggarrange(p1, p2,ncol=2,legend = &amp;quot;none&amp;quot;),
+                            ggpubr::ggarrange(p3, p4,ncol=2,legend = &amp;quot;none&amp;quot;), 
+                            p5,
+                            nrow = 3,
+                            #labels = c(&amp;quot;Panel A: Actions&amp;quot;, &amp;quot;Panel B: States&amp;quot;, &amp;quot;Panel C: Profit&amp;quot;),
+                            #font.label = list(size = 11, color = &amp;quot;black&amp;quot;, face =&amp;quot;bold.italic&amp;quot;, family = NULL),
+                            vjust = 0,
+                            common.legend = TRUE, 
+                            legend = &amp;quot;bottom&amp;quot;)
+figure&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/code_project/Optimal_stochastic_control/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Monetary policy with oligopolistic competition, firm heterogeneity and entry</title>
+      <link>/publication/first_year_chapter/</link>
+      <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>/publication/first_year_chapter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Monetary policy with oligopolistic competition, firm heterogeneity and entry</title>
+      <link>/research_project/first_year_chapter-copy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/research_project/first_year_chapter-copy/</guid>
+      <description>&lt;p&gt;The standard textbook New Keynesian model relies on counter-cyclical profits for monetary policy to
+have an effect as recently pointed out by Broer et al. (2018). This paper first tests this hypothesis by
+adding oligopolistic competition and static free entry to an otherwise standard NK model. Including
+search and matching frictions to the labour market, breaks the result of money neutrality despite
+free entry of firms. Beyond that, the model is further augmented to accommodate firm heterogeneity
+and dynamic entry to investigate how the market structure affects the propagation of monetary policy
+shocks. The findings are threefold: First, through the channel of oligopolistic competition, heterogeneity
+in firms&amp;rsquo; productivity leads to pro-cyclical profits for lower levels of wage rigidity compared to the
+homogeneous case. Second, firm heterogeneity increases the response in aggregate output which is in
+line with Mongey (2017). Third, dynamic entry is further enhancing this effect, yet the strengthening
+of competition has a negative impact on firms&amp;rsquo; profits. Local projections using Compustat firm-level
+data and Romer and Romer (2004) monetary policy shocks support the predictions of the theoretical
+model.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

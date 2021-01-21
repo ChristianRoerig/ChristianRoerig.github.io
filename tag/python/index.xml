@@ -5,7 +5,7 @@
     <link>/tag/python/</link>
       <atom:link href="/tag/python/index.xml" rel="self" type="application/rss+xml" />
     <description>Python</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Wed, 27 May 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Wed, 27 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Python</title>
@@ -14,9 +14,9 @@
     
     <item>
       <title>Twitter and DeepL</title>
-      <link>/project/twitter/</link>
+      <link>/code_project/twitter/</link>
       <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
-      <guid>/project/twitter/</guid>
+      <guid>/code_project/twitter/</guid>
       <description>&lt;h1 id=&#34;sentiment-analysis&#34;&gt;Sentiment analysis&lt;/h1&gt;
 &lt;h2 id=&#34;analysing-bolsonaros-tweets-during-the-covid19-pandemic&#34;&gt;Analysing Bolsonaro&amp;rsquo;s tweets during the Covid19 pandemic&lt;/h2&gt;
 &lt;h3 id=&#34;setup&#34;&gt;Setup&lt;/h3&gt;

@@ -5,12 +5,54 @@
     <link>/research/</link>
       <atom:link href="/research/index.xml" rel="self" type="application/rss+xml" />
     <description>Work in Progress</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Mon, 01 Jul 2013 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Work in Progress</title>
       <link>/research/</link>
     </image>
+    
+    <item>
+      <title>An example conference paper</title>
+      <link>/research_project/first_year_chapter/</link>
+      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
+      <guid>/research_project/first_year_chapter/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Supplementary notes can be added here, including 
+&lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Monetary policy with oligopolistic competition, firm heterogeneity and entry</title>
+      <link>/research_project/first_year_chapter-copy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/research_project/first_year_chapter-copy/</guid>
+      <description>&lt;p&gt;The standard textbook New Keynesian model relies on counter-cyclical profits for monetary policy to
+have an effect as recently pointed out by Broer et al. (2018). This paper first tests this hypothesis by
+adding oligopolistic competition and static free entry to an otherwise standard NK model. Including
+search and matching frictions to the labour market, breaks the result of money neutrality despite
+free entry of firms. Beyond that, the model is further augmented to accommodate firm heterogeneity
+and dynamic entry to investigate how the market structure affects the propagation of monetary policy
+shocks. The findings are threefold: First, through the channel of oligopolistic competition, heterogeneity
+in firms&amp;rsquo; productivity leads to pro-cyclical profits for lower levels of wage rigidity compared to the
+homogeneous case. Second, firm heterogeneity increases the response in aggregate output which is in
+line with Mongey (2017). Third, dynamic entry is further enhancing this effect, yet the strengthening
+of competition has a negative impact on firms&amp;rsquo; profits. Local projections using Compustat firm-level
+data and Romer and Romer (2004) monetary policy shocks support the predictions of the theoretical
+model.&lt;/p&gt;
+</description>
+    </item>
     
   </channel>
 </rss>

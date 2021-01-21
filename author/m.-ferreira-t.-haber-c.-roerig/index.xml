@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>M. Ferreira, T. Haber, C. Roerig | Christian Roerig</title>
+    <link>/author/m.-ferreira-t.-haber-c.-roerig/</link>
+      <atom:link href="/author/m.-ferreira-t.-haber-c.-roerig/index.xml" rel="self" type="application/rss+xml" />
+    <description>M. Ferreira, T. Haber, C. Roerig</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>M. Ferreira, T. Haber, C. Roerig</title>
+      <link>/author/m.-ferreira-t.-haber-c.-roerig/</link>
+    </image>
+    
+    <item>
+      <title>Financial factors, firm size, and potential</title>
+      <link>/publication/firm_potential/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/firm_potential/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

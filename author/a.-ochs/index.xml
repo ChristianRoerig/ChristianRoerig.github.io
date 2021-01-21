@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>A. Ochs | Christian Roerig</title>
+    <link>/author/a.-ochs/</link>
+      <atom:link href="/author/a.-ochs/index.xml" rel="self" type="application/rss+xml" />
+    <description>A. Ochs</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 01 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>A. Ochs</title>
+      <link>/author/a.-ochs/</link>
+    </image>
+    
+    <item>
+      <title>High-dimensional macroeconomic policy effects: A semi-parametric approach
+</title>
+      <link>/publication/high_dimensional_irf/</link>
+      <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>/publication/high_dimensional_irf/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
