@@ -1200,7 +1200,7 @@ figure&lt;/code&gt;&lt;/pre&gt;
   theme(legend.position = &amp;quot;none&amp;quot;)+
   xlab(&amp;quot;longitude&amp;quot;)+
   ylab(&amp;quot;latitute&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/Brazil/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/code_project/Brazil/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;plot-police-districts-from-shapefile&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Plot police districts from shapefile&lt;/h3&gt;
@@ -1218,7 +1218,7 @@ summary(shp@data)&lt;/code&gt;&lt;/pre&gt;
 ##                                        Max.   :0.2328915   Max.   :4.98608&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;map &amp;lt;- ggplot() + geom_polygon(data = shp, aes(x = long, y = lat, group = group), colour = &amp;quot;black&amp;quot;, fill = NA)
 map + theme_void()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/Brazil/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/code_project/Brazil/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;shp &amp;lt;- spTransform(shp, CRS(&amp;quot;+proj=longlat +datum=WGS84&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;plot-maps-visualizing-crime-stats-per-police-district&#34; class=&#34;section level3&#34;&gt;
@@ -1257,7 +1257,7 @@ ggplot()+
   geom_point(aes(x=longitude,y=latitude,color=as.numeric(as_factor(safety))),alpha=1,data=brazil_dta)+
   scale_color_gradient(high = &amp;quot;#00FF00&amp;quot;, low = &amp;quot;#FF0000&amp;quot;,name=&amp;quot;perceived safety&amp;quot;,limits=c(0,10))+
   coord_map(xlim = c(-44, -42.75),ylim = c(-23.1, -22.5))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/Brazil/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/code_project/Brazil/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# plot shape file with crime data on map
 ggplot()+
   geom_polygon(aes(x=long, y=lat, group=group, fill= pc_total_roubos), size=.2,color=&amp;#39;black&amp;#39;, data=shp_crime, alpha=1)+
@@ -1265,7 +1265,7 @@ ggplot()+
   geom_point(aes(x=longitude,y=latitude,color=as.numeric(as_factor(safety))),alpha=1,data=brazil_dta)+
   scale_color_gradient(high = &amp;quot;#00FF00&amp;quot;, low = &amp;quot;#FF0000&amp;quot;,name=&amp;quot;perceived safety&amp;quot;,limits=c(0,10))+
   coord_map(xlim = c(-44, -42.75),ylim = c(-23.1, -22.5))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/Brazil/index_files/figure-html/unnamed-chunk-4-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/code_project/Brazil/index_files/figure-html/unnamed-chunk-4-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# plot shape file with crime data on map
 ggplot()+
   geom_polygon(aes(x=long, y=lat, group=group, fill= pc_total_furtos), size=.2,color=&amp;#39;black&amp;#39;, data=shp_crime, alpha=1)+
@@ -1273,7 +1273,7 @@ ggplot()+
   geom_point(aes(x=longitude,y=latitude,color=as.numeric(as_factor(safety))),alpha=1,data=brazil_dta)+
   scale_color_gradient(high = &amp;quot;#00FF00&amp;quot;, low = &amp;quot;#FF0000&amp;quot;,name=&amp;quot;perceived safety&amp;quot;,limits=c(0,10))+
   coord_map(xlim = c(-44, -42.75),ylim = c(-23.1, -22.5))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/Brazil/index_files/figure-html/unnamed-chunk-4-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/code_project/Brazil/index_files/figure-html/unnamed-chunk-4-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>

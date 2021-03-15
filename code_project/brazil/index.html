@@ -582,7 +582,7 @@
   theme(legend.position = &quot;none&quot;)+
   xlab(&quot;longitude&quot;)+
   ylab(&quot;latitute&quot;)</code></pre>
-<p><img src="/project/Brazil/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="/code_project/Brazil/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 <div id="plot-police-districts-from-shapefile" class="section level3">
 <h3>Plot police districts from shapefile</h3>
@@ -600,7 +600,7 @@ summary(shp@data)</code></pre>
 ##                                        Max.   :0.2328915   Max.   :4.98608</code></pre>
 <pre class="r"><code>map &lt;- ggplot() + geom_polygon(data = shp, aes(x = long, y = lat, group = group), colour = &quot;black&quot;, fill = NA)
 map + theme_void()</code></pre>
-<p><img src="/project/Brazil/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/code_project/Brazil/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>shp &lt;- spTransform(shp, CRS(&quot;+proj=longlat +datum=WGS84&quot;))</code></pre>
 </div>
 <div id="plot-maps-visualizing-crime-stats-per-police-district" class="section level3">
@@ -639,7 +639,7 @@ ggplot()+
   geom_point(aes(x=longitude,y=latitude,color=as.numeric(as_factor(safety))),alpha=1,data=brazil_dta)+
   scale_color_gradient(high = &quot;#00FF00&quot;, low = &quot;#FF0000&quot;,name=&quot;perceived safety&quot;,limits=c(0,10))+
   coord_map(xlim = c(-44, -42.75),ylim = c(-23.1, -22.5))</code></pre>
-<p><img src="/project/Brazil/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/code_project/Brazil/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code># plot shape file with crime data on map
 ggplot()+
   geom_polygon(aes(x=long, y=lat, group=group, fill= pc_total_roubos), size=.2,color=&#39;black&#39;, data=shp_crime, alpha=1)+
@@ -647,7 +647,7 @@ ggplot()+
   geom_point(aes(x=longitude,y=latitude,color=as.numeric(as_factor(safety))),alpha=1,data=brazil_dta)+
   scale_color_gradient(high = &quot;#00FF00&quot;, low = &quot;#FF0000&quot;,name=&quot;perceived safety&quot;,limits=c(0,10))+
   coord_map(xlim = c(-44, -42.75),ylim = c(-23.1, -22.5))</code></pre>
-<p><img src="/project/Brazil/index_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<p><img src="/code_project/Brazil/index_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
 <pre class="r"><code># plot shape file with crime data on map
 ggplot()+
   geom_polygon(aes(x=long, y=lat, group=group, fill= pc_total_furtos), size=.2,color=&#39;black&#39;, data=shp_crime, alpha=1)+
@@ -655,7 +655,7 @@ ggplot()+
   geom_point(aes(x=longitude,y=latitude,color=as.numeric(as_factor(safety))),alpha=1,data=brazil_dta)+
   scale_color_gradient(high = &quot;#00FF00&quot;, low = &quot;#FF0000&quot;,name=&quot;perceived safety&quot;,limits=c(0,10))+
   coord_map(xlim = c(-44, -42.75),ylim = c(-23.1, -22.5))</code></pre>
-<p><img src="/project/Brazil/index_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
+<p><img src="/code_project/Brazil/index_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
 </div>
 
     </div>

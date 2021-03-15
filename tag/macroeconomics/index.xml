@@ -5,12 +5,21 @@
     <link>/tag/macroeconomics/</link>
       <atom:link href="/tag/macroeconomics/index.xml" rel="self" type="application/rss+xml" />
     <description>Macroeconomics</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Fri, 15 Jan 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Macroeconomics</title>
       <link>/tag/macroeconomics/</link>
     </image>
+    
+    <item>
+      <title>High-dimensional macroeconomic policy effects: A semi-parametric approach
+</title>
+      <link>/publication/high_dimensional_irf/</link>
+      <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>/publication/high_dimensional_irf/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Financial factors, firm size, and potential</title>
@@ -34,15 +43,6 @@
       <link>/publication/bbmnc/</link>
       <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
       <guid>/publication/bbmnc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>High-dimensional macroeconomic policy effects: A semi-parametric approach
-</title>
-      <link>/publication/high_dimensional_irf/</link>
-      <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/publication/high_dimensional_irf/</guid>
       <description></description>
     </item>
     
