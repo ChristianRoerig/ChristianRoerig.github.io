@@ -1,0 +1,160 @@
+---
+const papers = [
+  {
+    title: 'High-dimensional macroeconomic policy effects: A semi-parametric approach',
+    authors: 'A. Ochs, C. Roerig',
+    abstract: 'A flexible framework to identify potential state- and time-dependent effects of macroeconomic policies using random forests, correctly identifying multiple states even for small sample sizes.',
+    pdf: '/research/Ochs_and_Roerig_draft.pdf',
+    tags: ['Macro', 'ML'],
+    thumb: '/research/thumbs/ochs_roerig.png',
+  },
+  {
+    title: 'Financial factors, firm size, and potential',
+    authors: 'M. Ferreira, T. Haber, C. Roerig',
+    abstract: 'Revisiting the relationship of financial frictions and firm characteristics using the universe of Portuguese firms. Firm growth is a critical variable in explaining financial conditions.',
+    pdf: '/research/Ferreira_Haber_and_Roerig_draft.pdf',
+    slides: '/slides/FHR/FHR_slides.pdf',
+    tags: ['Macro', 'Firm Dynamics'],
+    thumb: '/research/thumbs/ferreira_haber_roerig.png',
+  },
+  {
+    title: 'Savings shocks and business cycle fluctuations',
+    authors: 'P. Rendahl, C. Roerig',
+    abstract: 'Using long-run properties of MPS shocks in growth models with sticky prices to identify their causal, contractionary effect on economic activity.',
+    pdf: '/research/Rendahl_Roerig.pdf',
+    tags: ['Macro'],
+  },
+  {
+    title: 'The Birth of a Multinational: Innovation and Foreign Acquisitions',
+    authors: 'J. Goldman, M. Guadalupe, V. Rappoport, C. Roerig',
+    abstract: 'Firms\' joint decision to innovate and become a multinational. Innovation is lumpy and disruptive; the option of foreign investment stimulates domestic innovation.',
+    tags: ['Firm Dynamics'],
+  },
+  {
+    title: 'City of God: How Does Religion Affect Individual Behaviour and Outcomes?',
+    authors: 'T. Cavalcanti, S. Iyer, C. Rauh, C. Roerig, M. Vaziri',
+    abstract: 'Quantifying how religion and religiosity affect individual insurance and decision-making using primary data from Rio de Janeiro.',
+    pdf: '/research/Religion_and_Insurance_Brazil.pdf',
+    slides: '/slides/city_of_god/Religion_and_Insurance_Brazil.pdf',
+    tags: ['Development'],
+    thumb: '/research/thumbs/city_of_god.png',
+  },
+  {
+    title: 'Monetary policy with oligopolistic competition, firm heterogeneity and entry',
+    authors: 'C. Roerig',
+    abstract: 'Investigating how market structure affects the propagation of monetary policy shocks with oligopolistic competition and dynamic entry.',
+    pdf: '/research/First_year_chapter_CR.pdf',
+    tags: ['Macro', 'Firm Dynamics'],
+  },
+];
+
+const tagColors: Record<string, string> = {
+  'Macro': 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
+  'ML': 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400',
+  'Firm Dynamics': 'bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400',
+  'Development': 'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
+};
+---
+
+<section id="research" class="fade-in-section py-20 bg-zinc-50/50 dark:bg-zinc-800/20">
+  <div class="mx-auto max-w-4xl px-6">
+    <h2 class="section-heading mb-10">Research</h2>
+    <div class="space-y-5">
+      {papers.map((paper, i) => (
+        <article class="group rounded-lg border border-zinc-100 bg-white p-5 transition-shadow hover:shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+          <div class="flex gap-5">
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                {paper.tags?.map((tag) => (
+                  <span class={`inline-block rounded-full px-2 py-0.5 text-[10px] font-medium ${tagColors[tag] || 'bg-zinc-100 text-zinc-500'}`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h3 class="text-sm font-medium leading-snug text-zinc-900 dark:text-zinc-100">
+                {paper.pdf ? (
+                  <a href={paper.pdf} class="hover:underline">{paper.title}</a>
+                ) : (
+                  paper.title
+                )}
+              </h3>
+              <p class="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+                {paper.authors}
+              </p>
+              <div data-abstract={i} class="hidden">
+                <p class="mt-2 text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                  {paper.abstract}
+                </p>
+              </div>
+              <div class="mt-2 flex items-center gap-3">
+                {paper.pdf && (
+                  <a
+                    href={paper.pdf}
+                    class="text-xs font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-2 transition-colors hover:text-zinc-900 dark:decoration-zinc-600 dark:hover:text-zinc-100"
+                  >
+                    PDF
+                  </a>
+                )}
+                {paper.slides && (
+                  <a
+                    href={paper.slides}
+                    class="text-xs font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-2 transition-colors hover:text-zinc-900 dark:decoration-zinc-600 dark:hover:text-zinc-100"
+                  >
+                    Slides
+                  </a>
+                )}
+                <button
+                  data-abstract-toggle={i}
+                  class="text-xs text-zinc-400 transition-colors hover:text-zinc-600 dark:hover:text-zinc-300"
+                >
+                  <span data-abstract-label={i}>show abstract</span>
+                </button>
+              </div>
+            </div>
+            {paper.thumb && (
+              <div class="hidden sm:flex shrink-0 items-center">
+                <img
+                  src={paper.thumb}
+                  alt=""
+                  class="max-h-28 w-auto max-w-[200px] rounded border border-zinc-100 object-contain dark:border-zinc-800"
+                />
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-14 border-t border-zinc-200 pt-10 dark:border-zinc-700">
+      <h2 class="section-heading mb-4">Thesis</h2>
+      <article class="rounded-lg border border-zinc-100 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+        <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+          PhD Dissertation
+        </h3>
+        <p class="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+          University of Cambridge, 2021
+        </p>
+        <div class="mt-2">
+          <a
+            href="https://www.repository.cam.ac.uk/items/c2cbbc8a-4143-493b-90e6-d01430dcb2e4"
+            class="text-xs font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-2 transition-colors hover:text-zinc-900 dark:decoration-zinc-600 dark:hover:text-zinc-100"
+          >
+            Cambridge Repository
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  document.querySelectorAll('[data-abstract-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = btn.getAttribute('data-abstract-toggle');
+      const abstract = document.querySelector(`[data-abstract="${i}"]`);
+      const label = document.querySelector(`[data-abstract-label="${i}"]`);
+      const isHidden = abstract.classList.toggle('hidden');
+      label.textContent = isHidden ? 'show abstract' : 'hide abstract';
+    });
+  });
+</script>
