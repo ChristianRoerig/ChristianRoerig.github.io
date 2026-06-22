@@ -12,8 +12,9 @@ const papers = [
     title: 'Financial factors, firm size and firm potential',
     authors: 'M. Ferreira, T. Haber, C. Roerig',
     abstract: 'Using a unique dataset covering the universe of Portuguese firms and their credit situation we show that financially constrained firms are found across the entire firm size distribution, account for a larger total asset share compared to standard heterogeneous firms models, and exhibit a higher cyclical sensitivity, conditional on size. In light of these findings we reassess the importance of the firm distribution in shaping aggregate outcomes in the canonical model of heterogeneous firms with financial frictions. We augment the productivity process with ex-ante heterogeneity of firms, allowing us to match the distribution of constrained firms conditional on size. This, together with the fact that constrained firms have a higher capital elasticity, leads to up to four times larger aggregate fluctuations and capital misallocation.',
-    pdf: '/research/Ferreira_Haber_and_Roerig_draft.pdf',
+    pdf: '/research/FHR_1024.pdf',
     slides: '/slides/FHR/FHR_slides.pdf',
+    cwpe: 'https://www.econ.cam.ac.uk/publications/cwpe/2176',
     tags: ['Macro', 'Firm Dynamics'],
     thumb: '/research/thumbs/ferreira_haber_roerig.png',
   },
@@ -36,6 +37,7 @@ const papers = [
     abstract: 'Using primary data from Brazil collected from 2019-2020, we aim to quantify the link between religion, expectations and economic outcomes. The survey data suggest that religious communities act as a source of informal insurance. Individuals appear to invest more in their religious communities if they can also expect various forms of community support. Particularly, when offered support to find a job, their perceived likelihood of finding a job increases. The degree of this insurance channel varies across different religions and is highest for Pentecostals. Furthermore, we build a theoretical life-cycle heterogeneous agents model and calibrate it to the data. The structural model identifies the job support channel as a by-product of coordinated beliefs in the afterlife.',
     pdf: '/research/Religion_and_Insurance_Brazil.pdf',
     slides: '/slides/city_of_god/Religion_and_Insurance_Brazil.pdf',
+    cwpe: 'https://www.econ.cam.ac.uk/publications/cwpe/2268',
     tags: ['Development'],
     thumb: '/research/thumbs/city_of_god.png',
   },
@@ -101,6 +103,14 @@ const tagColors: Record<string, string> = {
                     class="text-xs font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-2 transition-colors hover:text-zinc-900 dark:decoration-zinc-600 dark:hover:text-zinc-100"
                   >
                     Slides
+                  </a>
+                )}
+                {paper.cwpe && (
+                  <a
+                    href={paper.cwpe}
+                    class="text-xs font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-2 transition-colors hover:text-zinc-900 dark:decoration-zinc-600 dark:hover:text-zinc-100"
+                  >
+                    CWPE
                   </a>
                 )}
                 <button
