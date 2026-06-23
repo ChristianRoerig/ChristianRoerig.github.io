@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<Layout title="Page Not Found — Christian Roerig">
+  <Nav />
+  <main class="pt-32 pb-20">
+    <div class="mx-auto max-w-xl px-6 text-center">
+      <h1 class="text-6xl font-semibold text-zinc-200 dark:text-zinc-700">404</h1>
+      <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+        This page doesn't exist. The site was recently redesigned and some old URLs have changed.
+      </p>
+      <a
+        href="/"
+        class="mt-6 inline-block rounded-full bg-zinc-900 px-5 py-2 text-xs font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+      >
+        Go to homepage
+      </a>
+    </div>
+  </main>
+  <Footer />
+</Layout>

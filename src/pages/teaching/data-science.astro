@@ -1,0 +1,217 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import SlideCarousel from '../../components/SlideCarousel.astro';
+import '../../styles/global.css';
+
+import fs from 'node:fs';
+import path from 'node:path';
+
+const slidesDir = path.resolve('./public/slides/data-science');
+const thumbsDir = path.resolve('./public/slides/data-science/thumbs');
+const hasThumbsDir = fs.existsSync(thumbsDir);
+let slides: { name: string; href: string; thumb: string | null }[] = [];
+
+if (fs.existsSync(slidesDir)) {
+  slides = fs.readdirSync(slidesDir)
+    .filter(f => f.endsWith('.pdf'))
+    .sort()
+    .map(f => {
+      const base = f.replace('.pdf', '');
+      const thumbFile = `${base}.png`;
+      const hasThumb = hasThumbsDir && fs.existsSync(path.join(thumbsDir, thumbFile));
+      return {
+        name: base.replace(/^\d+-/, '').replace(/[-_]/g, ' '),
+        href: `/slides/data-science/${f}`,
+        thumb: hasThumb ? `/slides/data-science/thumbs/${thumbFile}` : null,
+      };
+    });
+}
+
+const outline = [
+  {
+    title: 'Lifecycle of a data science project',
+    topics: ['Introduction to typical stages of a data science project'],
+  },
+  {
+    title: 'Project setup phase',
+    topics: [
+      'Initial project scoping and trade-offs',
+      'Setting up a data science repository',
+      'Setup of pre-commit hooks, environment.yaml, .gitignore, etc.',
+    ],
+  },
+  {
+    title: 'Data wrangling and exploration',
+    topics: [
+      "Hands-on data exploration sessions using Python's pandas and polars libraries",
+      'Coping with messy real-world data (e.g. missing values, outliers)',
+    ],
+  },
+  {
+    title: 'Data retrieval and storage',
+    topics: [
+      'Data types and formats',
+      'Loading data files (e.g., CSV, Parquet)',
+      'Working with SQL databases',
+    ],
+  },
+  {
+    title: 'Data visualisation',
+    topics: [
+      'Best practices for effective visualisations',
+      'Utilising libraries such as matplotlib, seaborn, plotly, and altair',
+    ],
+  },
+  {
+    title: 'Feature engineering',
+    topics: [
+      'Feature engineering for numeric and categorical features',
+      'Dimension reduction techniques',
+      'FE pipelines using scikit-learn',
+    ],
+  },
+  {
+    title: 'Statistical modelling',
+    topics: [
+      'Modeling strategy',
+      'Cross-Validation',
+      'Feature selection',
+      'Hyperparameter tuning',
+      'Advanced modeling techniques (e.g. model composition, custom loss function)',
+    ],
+  },
+  {
+    title: 'Model evaluation and interpretability',
+    topics: [
+      'Evaluation metrics',
+      'Interpreting models using model-agnostic methods',
+    ],
+  },
+  {
+    title: 'Model tracking and reproducibility',
+    topics: [
+      'Using MLflow for experiment tracking',
+      'Model conversion to ONNX format',
+    ],
+  },
+];
+---
+
+<Layout title="Fundamentals of Data Science — Christian Roerig">
+  <Nav />
+  <main class="pt-32 pb-20">
+    <div class="mx-auto max-w-3xl px-6">
+      <a href="/#teaching" class="text-xs text-zinc-400 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">&larr; Back</a>
+
+      <h1 class="mt-6 text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+        Fundamentals of Data Science
+      </h1>
+      <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+        MPhil in Economics and Data Science &middot; Faculty of Economics &middot; University of Cambridge
+      </p>
+      <p class="mt-0.5 text-sm text-zinc-400 dark:text-zinc-500">
+        Michaelmas Term 2024
+      </p>
+
+      <!-- Course info -->
+      <div class="mt-8 grid gap-6 sm:grid-cols-2">
+        <div>
+          <h2 class="section-heading mb-3">Lecturers</h2>
+          <ul class="space-y-1 text-sm text-zinc-600 dark:text-zinc-300">
+            <li>Dr. Adrian Ochs <span class="text-zinc-400 dark:text-zinc-500">(acro2@cam.ac.uk)</span></li>
+            <li>Dr. Christian Rörig <span class="text-zinc-400 dark:text-zinc-500">(cmr61@cam.ac.uk)</span></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="section-heading mb-3">Format</h2>
+          <ul class="space-y-1 text-sm text-zinc-600 dark:text-zinc-300">
+            <li>9 lectures (2 hours each)</li>
+            <li>5 classes (2 hours each)</li>
+          </ul>
+          <p class="mt-2 text-xs text-zinc-400 dark:text-zinc-500">TA: Dr. Niklas Schmitz</p>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="mt-10">
+        <h2 class="section-heading mb-4">Description</h2>
+        <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+          This course introduces students to the fundamental concepts, techniques, and tools in data science. With a focus on end-to-end data science projects, the course is designed to equip students with the skills necessary for successful interviews and careers in the field. Students will learn to tackle real-world data problems, covering the entire spectrum from data acquisition and preprocessing to analysis, visualisation, statistical modelling, and considerations for moving models to production. As part of this course, students will also be equipped with valuable software engineering skills.
+        </p>
+      </div>
+
+      <!-- Outline -->
+      <div class="mt-10">
+        <h2 class="section-heading mb-6">Course Outline</h2>
+        <ol class="space-y-5">
+          {outline.map((lecture, i) => (
+            <li>
+              <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                <span class="mr-2 text-zinc-400 dark:text-zinc-500">{i + 1}.</span>
+                {lecture.title}
+              </h3>
+              <ul class="mt-1.5 ml-6 space-y-0.5">
+                {lecture.topics.map((topic) => (
+                  <li class="text-sm text-zinc-500 dark:text-zinc-400">&bull; {topic}</li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <!-- Aims -->
+      <div class="mt-10">
+        <h2 class="section-heading mb-4">Course Aims</h2>
+        <ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
+          <li>&bull; Be prepared for most data science internships/jobs, including completing end-to-end coding challenges.</li>
+          <li>&bull; Start your own coding projects and write your own package, developing a portfolio on GitHub.</li>
+          <li>&bull; Implement and review good coding practices.</li>
+          <li>&bull; Become familiar with core data science Python libraries (pandas, scikit-learn, etc.).</li>
+          <li>&bull; Learn to collaborate on a common code base using Git and GitHub.</li>
+        </ul>
+      </div>
+
+      <!-- Computing -->
+      <div class="mt-10">
+        <h2 class="section-heading mb-4">Computing Environment</h2>
+        <div class="flex flex-wrap gap-2">
+          {['VS Code', 'Conda', 'Python', 'Git & GitHub'].map((tool) => (
+            <span class="rounded-full border border-zinc-200 px-3 py-1 text-xs text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
+              {tool}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Assessment -->
+      <div class="mt-10">
+        <h2 class="section-heading mb-4">Assessment</h2>
+        <p class="text-sm text-zinc-600 dark:text-zinc-300">
+          The course culminates in a final data science project, evaluating:
+        </p>
+        <ul class="mt-2 space-y-1 text-sm text-zinc-600 dark:text-zinc-300">
+          <li>&bull; Project structure and organization</li>
+          <li>&bull; Code quality</li>
+          <li>&bull; Data analysis methodology and approach</li>
+          <li>&bull; A concise project report including visualization and presentation of results</li>
+        </ul>
+      </div>
+
+      <!-- Slides -->
+      <div class="mt-10">
+        <h2 class="section-heading mb-4">Lecture Slides</h2>
+        {slides.length > 0 ? (
+          <SlideCarousel slides={slides} id="ds-course-page" />
+        ) : (
+          <p class="text-xs text-zinc-400 dark:text-zinc-500 italic">
+            Slides will appear here once synced from Overleaf.
+          </p>
+        )}
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

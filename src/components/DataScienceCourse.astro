@@ -1,0 +1,56 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import SlideCarousel from './SlideCarousel.astro';
+
+function getSlides(slug: string) {
+  const slidesDir = path.resolve(`./public/slides/${slug}`);
+  if (!fs.existsSync(slidesDir)) return [];
+  const thumbsDir = path.resolve(`./public/slides/${slug}/thumbs`);
+  const hasThumbsDir = fs.existsSync(thumbsDir);
+  return fs.readdirSync(slidesDir)
+    .filter(f => f.endsWith('.pdf'))
+    .sort()
+    .map(f => {
+      const base = f.replace('.pdf', '');
+      const thumbFile = `${base}.png`;
+      const hasThumb = hasThumbsDir && fs.existsSync(path.join(thumbsDir, thumbFile));
+      return {
+        name: base.replace(/^\d+-/, '').replace(/[-_]/g, ' '),
+        href: `/slides/${slug}/${f}`,
+        thumb: hasThumb ? `/slides/${slug}/thumbs/${thumbFile}` : null,
+      };
+    });
+}
+
+const slides = getSlides('data-science');
+---
+
+<div class="rounded-lg border border-zinc-100 p-6 dark:border-zinc-800">
+  <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+    <div>
+      <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+        <a href="/teaching/data-science" class="underline decoration-zinc-300 underline-offset-2 transition-colors hover:decoration-cambridge-blue dark:decoration-zinc-600">
+          Fundamentals of Data Science
+        </a>
+        <span class="ml-2 inline-block rounded bg-zinc-100 px-1.5 py-0.5 text-xs font-normal text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+          MPhil
+        </span>
+        <span class="ml-2 inline-block rounded bg-cambridge-blue/20 px-1.5 py-0.5 text-xs font-normal text-cambridge-dark dark:bg-cambridge-blue/10 dark:text-cambridge-blue">
+          Lecturer
+        </span>
+      </h3>
+      <p class="text-sm text-zinc-500 dark:text-zinc-400">MPhil in Economics and Data Science, University of Cambridge</p>
+    </div>
+    <p class="shrink-0 text-xs text-zinc-400 dark:text-zinc-500">2024 – present</p>
+  </div>
+  {slides.length > 0 ? (
+    <div class="mt-4">
+      <SlideCarousel slides={slides} id="data-science" />
+    </div>
+  ) : (
+    <p class="mt-4 text-xs text-zinc-400 dark:text-zinc-500 italic">
+      Slides will appear here once synced.
+    </p>
+  )}
+</div>

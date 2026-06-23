@@ -1,0 +1,65 @@
+---
+import DataScienceCourse from './DataScienceCourse.astro';
+
+const courses = [
+  {
+    title: 'Advanced Econometric Methods',
+    level: 'MRes',
+    institution: 'Faculty of Economics, University of Cambridge',
+    period: 'Oct 2019 – Jan 2020',
+    role: 'Teaching Assistant',
+    note: 'Student satisfaction: 96%',
+  },
+  {
+    title: 'Applied Macroeconomics',
+    level: 'MPhil',
+    institution: 'Faculty of Economics, University of Cambridge',
+    period: 'Jan 2019 – Apr 2020',
+    role: 'Teaching Assistant',
+    note: 'Student satisfaction: 94% (2019), 89% (2020)',
+  },
+  {
+    title: 'Advanced Tools for Macroeconomists',
+    level: 'PhD',
+    institution: 'Summer school by W. den Haan, P. Rendahl & P. Sedláček — LSE (2018), Oxford (2020)',
+    period: '2018 & 2020',
+    role: 'Teaching Assistant',
+  },
+  {
+    title: 'Macroeconomics',
+    level: 'Tripos Part I',
+    institution: 'Downing and Jesus College, Cambridge',
+    period: 'Jan 2018 – Jun 2019',
+    role: 'Teaching Assistant',
+  },
+];
+---
+
+<section id="teaching" class="fade-in-section py-20">
+  <div class="mx-auto max-w-4xl px-6">
+    <h2 class="section-heading mb-10">Teaching</h2>
+    <DataScienceCourse />
+    <div class="mt-8 space-y-6">
+      {courses.map((course) => (
+        <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+          <div>
+            <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+              {course.title}
+              <span class="ml-2 inline-block rounded bg-zinc-100 px-1.5 py-0.5 text-xs font-normal text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+                {course.level}
+              </span>
+              <span class="ml-2 inline-block rounded bg-zinc-50 px-1.5 py-0.5 text-xs font-normal text-zinc-400 dark:bg-zinc-800/50 dark:text-zinc-500">
+                {course.role}
+              </span>
+            </h3>
+            <p class="text-sm text-zinc-500 dark:text-zinc-400">{course.institution}</p>
+            {course.note && (
+              <p class="text-xs text-zinc-400 dark:text-zinc-500">{course.note}</p>
+            )}
+          </div>
+          <p class="shrink-0 text-xs text-zinc-400 dark:text-zinc-500">{course.period}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
