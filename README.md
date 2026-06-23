@@ -18,7 +18,3 @@ npm run dev
 ## Deployment
 
 Pushes to `master` automatically deploy via `.github/workflows/deploy.yml`.
-
-## Slides sync
-
-Teaching slides are synced weekly from Overleaf via `.github/workflows/sync-slides.yml`.
